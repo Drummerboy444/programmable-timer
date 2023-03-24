@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start --dev-client",
     "lint": "eslint --ext .ts,.tsx src --max-warnings=0",
     "check-types": "tsc",
     "test": "jest",
+    "build:development:android": "eas build -p android --profile development",
+    "build:development:ios-simulator": "eas build -p ios --profile development-ios-simulator",
+    "build:production:android": "eas build -p android --profile production",
+    "build:production:ios": "eas build -p ios --profile production",
     "prepare": "husky install"
   },
   "dependencies": {
     "expo": "~48.0.9",
+    "expo-dev-client": "~2.1.6",
     "expo-status-bar": "~1.4.4",
     "fp-ts": "^2.13.1",
     "react": "18.2.0",
@@ -22,6 +27,7 @@
     "@types/react": "~18.0.14",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
+    "eas-cli": "3.8.1",
     "eslint": "^8.36.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
