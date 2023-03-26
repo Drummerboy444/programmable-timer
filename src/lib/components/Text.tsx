@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import React, { Text as TEXT } from 'react-native';
-import { useTheme } from '../theming/use-theme';
+import { useTheme } from '../../theming/use-theme';
 
 export function Text({
   style,

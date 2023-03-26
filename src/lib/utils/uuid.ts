@@ -1,6 +1,9 @@
 import { flow, constant } from 'fp-ts/lib/function';
 import * as A from 'fp-ts/Array';
 import * as S from 'fp-ts/string';
+import { Brand } from '../types/brand';
+
+export type Uuid = Brand<string, 'Uuid'>;
 
 const LENGTH = 24;
 const CHUNK_SIZE = 4;
@@ -17,7 +20,7 @@ const toCharacter = (characterCode: number) =>
 
 const EMPTY_UUID = A.replicate(LENGTH, undefined);
 
-export const getUuid = flow(
+export const getUuid: () => Uuid = flow(
   constant(EMPTY_UUID),
   A.map(getRandomCharacterCode),
   A.map(toCharacter),
@@ -25,4 +28,5 @@ export const getUuid = flow(
   A.intersperse([SEPARATOR]),
   A.flatten,
   A.reduce(S.empty, S.Monoid.concat),
+  s => s as Uuid,
 );

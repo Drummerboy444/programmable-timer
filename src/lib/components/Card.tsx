@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import React, { View } from 'react-native';
-import { useSizes } from '../sizing/use-sizes';
-import { useTheme } from '../theming/use-theme';
+import { useSizes } from '../../sizing/use-sizes';
+import { useTheme } from '../../theming/use-theme';
 
 export function Card({
   style,

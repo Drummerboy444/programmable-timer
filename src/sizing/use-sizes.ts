@@ -1,11 +1,11 @@
-import { Sizes } from './sizes';
+import { Sizes } from './types';
 
 const SIZES: Sizes = {
-  extraSmall: 2,
-  small: 4,
-  medium: 8,
-  large: 12,
-  extraLarge: 16,
+  extraSmall: 4,
+  small: 8,
+  medium: 12,
+  large: 16,
+  extraLarge: 24,
 };
 
 export const useSizes = () => SIZES;
