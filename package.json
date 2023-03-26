@@ -7,10 +7,6 @@
     "lint": "eslint --ext .ts,.tsx src --max-warnings=0",
     "check-types": "tsc",
     "test": "jest",
-    "build:development:android": "eas build -p android --profile development",
-    "build:development:ios-simulator": "eas build -p ios --profile development-ios-simulator",
-    "build:production:android": "eas build -p android --profile production",
-    "build:production:ios": "eas build -p ios --profile production",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -28,7 +24,6 @@
     "@types/react": "~18.0.14",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
-    "eas-cli": "3.8.1",
     "eslint": "^8.36.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",

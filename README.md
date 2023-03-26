@@ -1,4 +1,4 @@
-[![Run checks](https://github.com/Drummerboy444/programmable-timer/actions/workflows/run-checks.yml/badge.svg)](https://github.com/Drummerboy444/programmable-timer/actions/workflows/run-checks.yml)
+[![Build](https://github.com/Drummerboy444/programmable-timer/actions/workflows/build.yml/badge.svg)](https://github.com/Drummerboy444/programmable-timer/actions/workflows/build.yml)
 
 # Programmable timer
 
