@@ -1,6 +1,6 @@
 import React from 'react-native';
-import { App as RootApp } from './src/App';
+import { App as APP } from './src/App';
 
 export default function App() {
-  return <RootApp />;
+  return <APP />;
 }
