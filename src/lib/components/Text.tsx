@@ -2,10 +2,10 @@ import { PropsWithChildren } from 'react';
 import React, { Text as TEXT } from 'react-native';
 import { useTheme } from '../../theming/use-theme';
 
-export function Text({
+export const Text = ({
   style,
   children,
-}: PropsWithChildren<{ style?: React.TextStyle }>) {
+}: PropsWithChildren<{ style?: React.TextStyle }>) => {
   const { textColor: color } = useTheme();
 
   return (
@@ -18,4 +18,4 @@ export function Text({
       {children}
     </TEXT>
   );
-}
+};

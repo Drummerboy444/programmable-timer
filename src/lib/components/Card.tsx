@@ -3,10 +3,10 @@ import React, { View } from 'react-native';
 import { useSizes } from '../../sizing/use-sizes';
 import { useTheme } from '../../theming/use-theme';
 
-export function Card({
+export const Card = ({
   style,
   children,
-}: PropsWithChildren<{ style?: React.ViewStyle }>) {
+}: PropsWithChildren<{ style?: React.ViewStyle }>) => {
   const { backgroundColor, shadowColor, shadowOpacity } = useTheme();
   const { small } = useSizes();
 
@@ -26,4 +26,4 @@ export function Card({
       {children}
     </View>
   );
-}
+};
