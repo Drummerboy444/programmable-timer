@@ -15,7 +15,7 @@ describe('getUuid', () => {
     expect(uuid).toHaveLength(29);
   });
 
-  it('should return a string interspersed with 3 dashes at fixed intervals', () => {
+  it('should return a string interspersed with 5 dashes at fixed intervals', () => {
     const uuid = getUuid();
     const uuidWithoutDashes = uuid.replaceAll('-', '');
 
