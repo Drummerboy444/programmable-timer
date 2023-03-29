@@ -30,31 +30,27 @@ jobs:
       - name: Run tests
         run: npm run test
 
-  # Automatic builds are turned off as Expo limits the number of runs available on a free account.
-  #
-  # build:
-  #   name: Build
-  #   runs-on: ubuntu-latest
-  #   needs: [ run-checks ]
-  #   steps:
-  #     - name: Check out repository
-  #       uses: actions/checkout@v3
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [ run-checks ]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
 
-  #     - name: Install node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 18.15.0
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.15.0
 
-  #     - name: Install EAS
-  #       uses: expo/expo-github-action@v8
-  #       with:
-  #         eas-version: latest
-  #         token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
 
-  #     - name: Install dependencies
-  #       run: npm install
+      - name: Install dependencies
+        run: npm install
 
-  #     - name: Build app
-  #       run: |
-  #         eas build --platform android --profile development --non-interactive --no-wait
-  #         eas build --platform ios --profile development-ios-simulator --non-interactive --no-wait
+      - name: Build app
+        run: eas build --platform android --profile production --auto-submit-with-profile production --non-interactive --no-wait
