@@ -16,7 +16,8 @@
     "fp-ts": "^2.13.1",
     "io-ts": "^2.2.20",
     "react": "18.2.0",
-    "react-native": "0.71.4"
+    "react-native": "0.71.4",
+    "@react-native-async-storage/async-storage": "1.17.11"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
