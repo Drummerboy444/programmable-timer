@@ -24,7 +24,7 @@ export const getUuid: () => Uuid = flow(
   constant(EMPTY_UUID),
   A.map(getRandomCharacterCode),
   A.map(toCharacter),
-  A.chunksOf(Math.floor(CHUNK_SIZE)),
+  A.chunksOf(CHUNK_SIZE),
   A.intersperse([SEPARATOR]),
   A.flatten,
   A.reduce(S.empty, S.Monoid.concat),
