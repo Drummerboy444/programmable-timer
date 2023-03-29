@@ -9,7 +9,6 @@ export const THEME_LOOKUP: Record<ThemeType, Theme> = {
 };
 
 export const useTheme = () => {
-  const themeType = useThemeType();
-
+  const { themeType } = useThemeType();
   return THEME_LOOKUP[themeType];
 };
