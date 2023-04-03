@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { useCallback } from 'react';
-import React, { SafeAreaView } from 'react-native';
+import React, { Platform, SafeAreaView, StatusBar } from 'react-native';
 import { NavigationHeader } from './components/navigation-header/NavigationHeader';
 import { useNavigationHeader } from './components/navigation-header/use-navigation-header';
 import { SettingsScreen } from './screens/settings/SettingsScreen';
@@ -8,11 +8,13 @@ import { TimerListScreen } from './screens/timer-list/TimerListScreen';
 import { TimerScreen } from './screens/timer/TimerScreen';
 import { Screen } from './screens/types';
 import { useTheme } from './theming/use-theme';
+import { useThemeType } from './theming/use-theme-types';
 
 const DEFAULT_SCREEN = 'timer-list';
 
 export const App = () => {
   const { backgroundColor } = useTheme();
+  const { themeType } = useThemeType();
 
   const { currentScreen, setCurrentScreen } = useNavigationHeader({
     defaultScreen: DEFAULT_SCREEN,
@@ -41,9 +43,10 @@ export const App = () => {
       style={{
         flex: 1,
         backgroundColor,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
     >
-      <StatusBar style="auto" />
+      <ExpoStatusBar style={themeType === 'dark' ? 'light' : 'dark'} />
       <NavigationHeader
         currentScreen={currentScreen}
         setCurrentScreen={setCurrentScreen}
