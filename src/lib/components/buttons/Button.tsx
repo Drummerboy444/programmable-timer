@@ -2,6 +2,7 @@ import React from 'react-native';
 import { useTheme } from '../../../theming/use-theme';
 import { Text } from '../Text';
 import { BaseButton } from './BaseButton';
+import { useSizes } from '../../../sizing/use-sizes';
 
 export const Button = ({
   title,
@@ -10,14 +11,22 @@ export const Button = ({
   title: string;
   onPress?: () => void;
 }) => {
-  const { primaryColor: backgroundColor } = useTheme();
-  const onPressProp = onPress === undefined ? {} : { onPress };
+  const { primaryColor, secondaryColor } = useTheme();
+  const { medium } = useSizes();
+
+  const baseStyle: React.ViewStyle = {
+    backgroundColor: primaryColor,
+    alignSelf: 'flex-start',
+    padding: medium,
+  };
 
   return (
     <BaseButton
-      {...onPressProp}
-      style={{
-        backgroundColor,
+      {...(onPress === undefined ? {} : { onPress })}
+      style={baseStyle}
+      onPressStyle={{
+        ...baseStyle,
+        backgroundColor: secondaryColor,
       }}
     >
       <Text>{title}</Text>

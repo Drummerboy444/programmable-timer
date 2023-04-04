@@ -5,14 +5,16 @@ export const BaseButton = ({
   onPress,
   style,
   children,
+  onPressStyle,
 }: PropsWithChildren<{
   onPress?: () => void;
   style?: React.ViewStyle;
+  onPressStyle?: React.ViewStyle;
 }>) => (
   <Pressable
-    style={{
-      ...style,
-    }}
+    style={({ pressed }) => ({
+      ...(pressed && onPressStyle !== undefined ? onPressStyle : style),
+    })}
     onPress={onPress}
   >
     {children}

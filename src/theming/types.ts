@@ -6,6 +6,7 @@ export type Color = RGB | RGBA | Hex;
 
 export type Theme = {
   primaryColor: Color;
+  secondaryColor: Color;
   backgroundColor: Color;
   textColor: Color;
   shadowColor: Color;
