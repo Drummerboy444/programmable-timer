@@ -8,7 +8,7 @@ import { Screen } from '../../screens/types';
 
 const TITLE_LOOKUP: Record<Screen, string> = {
   'timer-list': 'Programmable Timer',
-  timer: 'This is the timer header',
+  timer: 'Timer',
   settings: 'Settings',
 };
 
@@ -36,6 +36,8 @@ export const NavigationHeader = ({
       style={{
         padding: medium,
         flexDirection: 'row',
+        alignItems: 'center',
+        gap: medium,
       }}
     >
       {shouldDisplayBackButton ? (
