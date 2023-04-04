@@ -1,25 +1,20 @@
 import { PropsWithChildren } from 'react';
 import React, { View } from 'react-native';
-import { useSizes } from '../../sizing/use-sizes';
 import { useTheme } from '../../theming/use-theme';
 
 export const Card = ({
   style,
   children,
 }: PropsWithChildren<{ style?: React.ViewStyle }>) => {
-  const { backgroundColor, shadowColor, shadowOpacity } = useTheme();
-  const { small } = useSizes();
+  const { backgroundColor, borderColor } = useTheme();
 
   return (
     <View
       style={{
         backgroundColor,
-        shadowColor,
-        shadowOpacity,
-        shadowOffset: {
-          width: small,
-          height: small,
-        },
+        borderColor,
+        borderWidth: 1,
+        borderStyle: 'solid',
         ...style,
       }}
     >

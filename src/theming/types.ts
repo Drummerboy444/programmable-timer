@@ -9,8 +9,7 @@ export type Theme = {
   secondaryColor: Color;
   backgroundColor: Color;
   textColor: Color;
-  shadowColor: Color;
-  shadowOpacity: number;
+  borderColor: Color;
 };
 
 export const themeTypes = ['light', 'dark'] as const;

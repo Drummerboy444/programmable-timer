@@ -5,6 +5,5 @@ export const darkTheme: Theme = {
   secondaryColor: '#9e350b',
   backgroundColor: '#333',
   textColor: '#fff',
-  shadowColor: '#000',
-  shadowOpacity: 0.4,
+  borderColor: '#ccc',
 };

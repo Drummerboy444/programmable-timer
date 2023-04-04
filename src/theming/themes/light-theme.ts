@@ -5,6 +5,5 @@ export const lightTheme: Theme = {
   secondaryColor: '#0e7d77',
   backgroundColor: '#fff',
   textColor: '#000',
-  shadowColor: '#000',
-  shadowOpacity: 0.25,
+  borderColor: '#aaa',
 };

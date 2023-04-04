@@ -6,3 +6,9 @@ export type TimingUnit = {
   name: string;
   length: PositiveInteger;
 };
+
+export type Timer = {
+  id: Uuid;
+  name: string;
+  timingUnits: TimingUnit[];
+};

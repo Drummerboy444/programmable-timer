@@ -1,14 +1,35 @@
-import React from 'react-native';
-import { Button } from '../../lib/components/buttons/Button';
-import { Text } from '../../lib/components/Text';
+import React, { View } from 'react-native';
+import { Timer } from '../../model/types';
+import { TimerListItem } from './TimerListItem';
+import { useSizes } from '../../sizing/use-sizes';
+import { Screen } from '../Screen';
 
 export const TimerListScreen = ({
-  onTimerPressed,
+  timers,
+  onTimerSelected,
 }: {
-  onTimerPressed: () => void;
-}) => (
-  <>
-    <Text>This is the timer list screen</Text>
-    <Button title="Go to a timer" onPress={onTimerPressed} />
-  </>
-);
+  timers: Timer[];
+  onTimerSelected: (timer: Timer) => void;
+}) => {
+  const { large } = useSizes();
+
+  const renderTimer = (timer: Timer) => (
+    <TimerListItem
+      key={timer.id}
+      timer={timer}
+      onTimerSelected={() => onTimerSelected(timer)}
+    />
+  );
+
+  return (
+    <Screen>
+      <View
+        style={{
+          gap: large,
+        }}
+      >
+        {timers.map(renderTimer)}
+      </View>
+    </Screen>
+  );
+};
