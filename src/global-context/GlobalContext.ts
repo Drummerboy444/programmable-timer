@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { noop } from '../lib/utils/noop';
 import { ThemeType } from '../theming/types';
 
-type GlobalContext = {
+export type GlobalContext = {
   themeType: ThemeType;
   setThemeType: (themeType: ThemeType) => void;
 };

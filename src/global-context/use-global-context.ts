@@ -1,7 +1,24 @@
-import { useState } from 'react';
-import { DEFAULT_GLOBAL_CONTEXT } from './GlobalContext';
+import { DEFAULT_GLOBAL_CONTEXT, GlobalContext } from './GlobalContext';
+import { getAsyncStorageHook } from '../lib/hooks/use-async-storage';
+import { ThemeType, isThemeType } from '../theming/types';
 
-export const useGlobalContext = () => {
-  const [themeType, setThemeType] = useState(DEFAULT_GLOBAL_CONTEXT.themeType);
-  return { themeType, setThemeType };
+const THEME_TYPE_KEY = 'theme-type';
+
+const useAsyncThemeTypeStorage = getAsyncStorageHook<ThemeType>({
+  serialise: themeType => themeType,
+  deserialise: s => (isThemeType(s) ? s : null),
+});
+
+export const useGlobalContext = (): GlobalContext => {
+  const { value: themeType, setValue: setThemeType } = useAsyncThemeTypeStorage(
+    {
+      key: THEME_TYPE_KEY,
+    },
+  );
+
+  return {
+    themeType:
+      themeType === null ? DEFAULT_GLOBAL_CONTEXT.themeType : themeType,
+    setThemeType,
+  };
 };

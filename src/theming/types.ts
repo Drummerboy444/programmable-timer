@@ -13,4 +13,11 @@ export type Theme = {
   shadowOpacity: number;
 };
 
-export type ThemeType = 'light' | 'dark';
+export const themeTypes = ['light', 'dark'] as const;
+
+export type ThemeType = (typeof themeTypes)[number];
+
+export const isThemeType = (
+  maybeThemeType: unknown,
+): maybeThemeType is ThemeType =>
+  themeTypes.includes(maybeThemeType as ThemeType);
