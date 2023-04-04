@@ -8,7 +8,7 @@ import { TimerListScreen } from './screens/timer-list/TimerListScreen';
 import { TimerScreen } from './screens/timer/TimerScreen';
 import { Screen } from './screens/types';
 import { useTheme } from './theming/use-theme';
-import { useThemeType } from './theming/use-theme-types';
+import { useThemeType } from './theming/use-theme-type';
 
 const DEFAULT_SCREEN = 'timer-list';
 

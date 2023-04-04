@@ -1,7 +1,7 @@
-import { darkTheme } from './dark-theme';
-import { lightTheme } from './light-theme';
+import { darkTheme } from './themes/dark-theme';
+import { lightTheme } from './themes/light-theme';
 import { Theme, ThemeType } from './types';
-import { useThemeType } from './use-theme-types';
+import { useThemeType } from './use-theme-type';
 
 export const THEME_LOOKUP: Record<ThemeType, Theme> = {
   light: lightTheme,

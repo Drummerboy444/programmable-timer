@@ -1,7 +1,7 @@
 import React from 'react-native';
 import { Button } from '../../lib/components/buttons/Button';
 import { Text } from '../../lib/components/Text';
-import { useThemeType } from '../../theming/use-theme-types';
+import { useThemeType } from '../../theming/use-theme-type';
 
 export const SettingsScreen = () => {
   const { themeType, setThemeType } = useThemeType();

@@ -1,4 +1,4 @@
-import { Theme } from './types';
+import { Theme } from '../types';
 
 export const darkTheme: Theme = {
   primaryColor: '#d68915',
