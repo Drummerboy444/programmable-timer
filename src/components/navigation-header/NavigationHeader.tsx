@@ -1,5 +1,4 @@
 import React from 'react-native';
-import { useCallback } from 'react';
 import { Text } from '../../lib/components/Text';
 import { Button } from '../../lib/components/buttons/Button';
 import { Card } from '../../lib/components/Card';
@@ -14,22 +13,17 @@ const TITLE_LOOKUP: Record<Screen, string> = {
 
 export const NavigationHeader = ({
   currentScreen,
-  setCurrentScreen,
+  goToTimerListScreen,
+  goToSettingsScreen,
 }: {
   currentScreen: Screen;
-  setCurrentScreen: (screen: Screen) => void;
+  goToTimerListScreen: () => void;
+  goToSettingsScreen: () => void;
 }) => {
   const { medium } = useSizes();
 
   const shouldDisplayBackButton = currentScreen !== 'timer-list';
-  const onBackPressed = useCallback(() => {
-    setCurrentScreen('timer-list');
-  }, [setCurrentScreen]);
-
   const shouldDisplaySettingsButton = currentScreen === 'timer-list';
-  const onSettingsPressed = useCallback(() => {
-    setCurrentScreen('settings');
-  }, [setCurrentScreen]);
 
   return (
     <Card
@@ -41,13 +35,13 @@ export const NavigationHeader = ({
       }}
     >
       {shouldDisplayBackButton ? (
-        <Button title="Go back" onPress={onBackPressed} />
+        <Button title="Go back" onPress={goToTimerListScreen} />
       ) : undefined}
 
       <Text>{TITLE_LOOKUP[currentScreen]}</Text>
 
       {shouldDisplaySettingsButton ? (
-        <Button title="Go to settings" onPress={onSettingsPressed} />
+        <Button title="Go to settings" onPress={goToSettingsScreen} />
       ) : undefined}
     </Card>
   );
