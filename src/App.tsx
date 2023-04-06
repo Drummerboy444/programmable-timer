@@ -1,6 +1,9 @@
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
+import { useContext } from 'react';
 import React, { Platform, SafeAreaView, StatusBar } from 'react-native';
 import { NavigationHeader } from './components/navigation-header/NavigationHeader';
+import { useNavigation } from './components/navigation-header/use-navigation';
+import { GlobalContext } from './global-context/GlobalContext';
 import { getUuid } from './lib/utils/uuid';
 import { PositiveInteger } from './model/positive-integer';
 import { Timer } from './model/types';
@@ -8,8 +11,6 @@ import { SettingsScreen } from './screens/settings/SettingsScreen';
 import { TimerListScreen } from './screens/timer-list/TimerListScreen';
 import { TimerScreen } from './screens/timer/TimerScreen';
 import { useTheme } from './theming/use-theme';
-import { useThemeType } from './theming/use-theme-type';
-import { useNavigation } from './components/navigation-header/use-navigation';
 
 const MOCK_TIMERS: Timer[] = [
   {
@@ -42,7 +43,7 @@ const MOCK_TIMERS: Timer[] = [
 
 export const App = () => {
   const { backgroundColor } = useTheme();
-  const { themeType } = useThemeType();
+  const { themeType } = useContext(GlobalContext);
 
   const { navigationState, setNavigationState } = useNavigation();
 

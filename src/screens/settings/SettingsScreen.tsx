@@ -1,11 +1,12 @@
 import React from 'react-native';
+import { useContext } from 'react';
 import { Button } from '../../lib/components/buttons/Button';
 import { Text } from '../../lib/components/Text';
-import { useThemeType } from '../../theming/use-theme-type';
 import { Screen } from '../Screen';
+import { GlobalContext } from '../../global-context/GlobalContext';
 
 export const SettingsScreen = () => {
-  const { themeType, setThemeType } = useThemeType();
+  const { themeType, setThemeType } = useContext(GlobalContext);
 
   const setLightTheme = () => {
     setThemeType('light');

@@ -1,7 +1,8 @@
+import { useContext } from 'react';
 import { darkTheme } from './themes/dark-theme';
 import { lightTheme } from './themes/light-theme';
 import { Theme, ThemeType } from './types';
-import { useThemeType } from './use-theme-type';
+import { GlobalContext } from '../global-context/GlobalContext';
 
 export const THEME_LOOKUP: Record<ThemeType, Theme> = {
   light: lightTheme,
@@ -9,6 +10,6 @@ export const THEME_LOOKUP: Record<ThemeType, Theme> = {
 };
 
 export const useTheme = () => {
-  const { themeType } = useThemeType();
+  const { themeType } = useContext(GlobalContext);
   return THEME_LOOKUP[themeType];
 };
