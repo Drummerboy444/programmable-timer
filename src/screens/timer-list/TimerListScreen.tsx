@@ -1,7 +1,7 @@
 import React, { View } from 'react-native';
 import { Timer } from '../../model/types';
 import { TimerListItem } from './TimerListItem';
-import { useSizes } from '../../sizing/use-sizes';
+import { useSizes } from '../../theming/use-sizes';
 import { Screen } from '../Screen';
 
 export const TimerListScreen = ({

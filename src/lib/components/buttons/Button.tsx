@@ -2,7 +2,7 @@ import React from 'react-native';
 import { useTheme } from '../../../theming/use-theme';
 import { Text } from '../Text';
 import { BaseButton } from './BaseButton';
-import { useSizes } from '../../../sizing/use-sizes';
+import { useSizes } from '../../../theming/use-sizes';
 
 export const Button = ({
   title,

@@ -20,3 +20,11 @@ export const isThemeType = (
   maybeThemeType: unknown,
 ): maybeThemeType is ThemeType =>
   themeTypes.includes(maybeThemeType as ThemeType);
+
+export type Sizes = {
+  extraSmall: number;
+  small: number;
+  medium: number;
+  large: number;
+  extraLarge: number;
+};

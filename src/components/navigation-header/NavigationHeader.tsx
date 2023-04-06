@@ -2,7 +2,7 @@ import React from 'react-native';
 import { Text } from '../../lib/components/Text';
 import { Button } from '../../lib/components/buttons/Button';
 import { Card } from '../../lib/components/Card';
-import { useSizes } from '../../sizing/use-sizes';
+import { useSizes } from '../../theming/use-sizes';
 import { Screen } from '../../screens/types';
 
 const TITLE_LOOKUP: Record<Screen, string> = {
