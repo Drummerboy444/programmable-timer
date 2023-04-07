@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Timer } from '../../model/types';
 
-type NavigationState =
+export type NavigationState =
   | {
       screen: 'timer-list';
     }

@@ -54,7 +54,7 @@ export const App = () => {
     >
       <ExpoStatusBar style={themeType === 'dark' ? 'light' : 'dark'} />
       <NavigationHeader
-        currentScreen={navigationState.screen}
+        navigationState={navigationState}
         goToTimerListScreen={() => setNavigationState({ screen: 'timer-list' })}
         goToSettingsScreen={() => setNavigationState({ screen: 'settings' })}
       />
