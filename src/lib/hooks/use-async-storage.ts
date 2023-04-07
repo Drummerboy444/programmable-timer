@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import * as O from 'fp-ts/Option';
-import { pipe } from 'fp-ts/lib/function';
+import { identity, pipe } from 'fp-ts/lib/function';
 
 const getItemOptional = async (key: string) =>
   O.fromNullable(await AsyncStorage.getItem(key));
@@ -38,3 +38,8 @@ export const getAsyncStorageHook =
 
     return { value, setValue };
   };
+
+export const useAsyncStringStorage = getAsyncStorageHook<string>({
+  serialise: identity,
+  deserialise: O.of,
+});

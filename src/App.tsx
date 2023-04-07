@@ -1,5 +1,5 @@
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import React, { Platform, SafeAreaView, StatusBar } from 'react-native';
 import { Drawer } from './components/drawer/Drawer';
 import { NavigationHeader } from './components/navigation-header/NavigationHeader';
@@ -10,13 +10,14 @@ import { SettingsScreen } from './screens/settings/SettingsScreen';
 import { TimerListScreen } from './screens/timer-list/TimerListScreen';
 import { TimerScreen } from './screens/timer/TimerScreen';
 import { useTheme } from './theming/use-theme';
+import { useTimers } from './model/use-timers';
 
 export const App = () => {
   const { backgroundColor } = useTheme();
   const { themeType } = useContext(GlobalContext);
 
   const { navigationState, setNavigationState } = useNavigation();
-  const [timers, setTimers] = useState<Timer[]>([]);
+  const { timers, setTimers } = useTimers();
 
   const onTimerPressed = (timer: Timer) => {
     setNavigationState({

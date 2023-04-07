@@ -30,3 +30,28 @@ export const getUuid: () => Uuid = flow(
   A.reduce(S.empty, S.Monoid.concat),
   s => s as Uuid,
 );
+
+export const isUuid = (x: unknown): x is Uuid => {
+  if (typeof x !== 'string') return false;
+  if (x.length !== 29) return false;
+
+  const splitOnSeparator = x.split(SEPARATOR);
+
+  if (splitOnSeparator.length !== LENGTH / CHUNK_SIZE) return false;
+  if (!splitOnSeparator.every(chunk => chunk.length === CHUNK_SIZE))
+    return false;
+  if (
+    !splitOnSeparator.every(chunk =>
+      chunk
+        .split('')
+        .every(
+          character =>
+            character.charCodeAt(0) >= MIN_CHARACTER_CODE &&
+            character.charCodeAt(0) <= MAX_CHARACTER_CODE,
+        ),
+    )
+  )
+    return false;
+
+  return true;
+};
