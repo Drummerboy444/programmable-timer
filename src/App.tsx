@@ -11,6 +11,7 @@ import { SettingsScreen } from './screens/settings/SettingsScreen';
 import { TimerListScreen } from './screens/timer-list/TimerListScreen';
 import { TimerScreen } from './screens/timer/TimerScreen';
 import { useTheme } from './theming/use-theme';
+import { Drawer } from './components/drawer/Drawer';
 
 const MOCK_TIMERS: Timer[] = [
   {
@@ -86,6 +87,7 @@ export const App = () => {
         goToSettingsScreen={() => setNavigationState({ screen: 'settings' })}
       />
       {renderScreen()}
+      <Drawer />
     </SafeAreaView>
   );
 };

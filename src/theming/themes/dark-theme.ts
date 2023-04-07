@@ -6,4 +6,5 @@ export const darkTheme: Theme = {
   backgroundColor: '#333',
   textColor: '#fff',
   borderColor: '#ccc',
+  drawerShadowOpacity: 0.4,
 };

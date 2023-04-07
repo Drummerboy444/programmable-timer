@@ -4,8 +4,8 @@ import React, { Pressable } from 'react-native';
 export const BaseButton = ({
   onPress,
   style,
-  children,
   onPressStyle,
+  children,
 }: PropsWithChildren<{
   onPress?: () => void;
   style?: React.ViewStyle;

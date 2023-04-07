@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { DEFAULT_GLOBAL_CONTEXT, GlobalContext } from './GlobalContext';
 import { getAsyncStorageHook } from '../lib/hooks/use-async-storage';
 import { ThemeType, isThemeType } from '../theming/types';
@@ -13,12 +14,18 @@ export const useGlobalContext = (): GlobalContext => {
   const { value: themeType, setValue: setThemeType } = useAsyncThemeTypeStorage(
     {
       key: THEME_TYPE_KEY,
+      defaultValue: DEFAULT_GLOBAL_CONTEXT.themeType,
     },
   );
 
+  const [drawerState, setDrawerState] = useState(
+    DEFAULT_GLOBAL_CONTEXT.drawerState,
+  );
+
   return {
-    themeType:
-      themeType === null ? DEFAULT_GLOBAL_CONTEXT.themeType : themeType,
+    themeType,
     setThemeType,
+    drawerState,
+    setDrawerState,
   };
 };

@@ -6,4 +6,5 @@ export const lightTheme: Theme = {
   backgroundColor: '#fff',
   textColor: '#000',
   borderColor: '#aaa',
+  drawerShadowOpacity: 0.25,
 };

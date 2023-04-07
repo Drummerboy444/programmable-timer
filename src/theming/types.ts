@@ -10,6 +10,7 @@ export type Theme = {
   backgroundColor: Color;
   textColor: Color;
   borderColor: Color;
+  drawerShadowOpacity: number;
 };
 
 export const themeTypes = ['light', 'dark'] as const;
@@ -27,4 +28,8 @@ export type Sizes = {
   medium: number;
   large: number;
   extraLarge: number;
+};
+
+export type ZIndexes = {
+  drawer: number;
 };
