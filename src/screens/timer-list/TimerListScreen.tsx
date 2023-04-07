@@ -6,7 +6,7 @@ import { useSizes } from '../../theming/use-sizes';
 import { Screen } from '../Screen';
 import { Button } from '../../lib/components/buttons/Button';
 import { GlobalContext } from '../../global-context/GlobalContext';
-import { getUuid } from '../../lib/utils/uuid';
+import { NewTimerForm } from './NewTimerForm';
 
 export const TimerListScreen = ({
   timers,
@@ -29,22 +29,15 @@ export const TimerListScreen = ({
     />
   );
 
-  const closeDrawer = () => {
+  const addNewTimer = (timer: Timer) => {
+    setTimers([...timers, timer]);
     setDrawerState({ open: false });
-  };
-
-  const addNewTimer = () => {
-    setTimers([
-      ...timers,
-      { id: getUuid(), name: 'Example Timer', timingUnits: [] },
-    ]);
-    closeDrawer();
   };
 
   const openDrawer = () => {
     setDrawerState({
       open: true,
-      content: <Button title="Create new timer" onPress={addNewTimer} />,
+      content: <NewTimerForm onSubmit={addNewTimer} />,
     });
   };
 

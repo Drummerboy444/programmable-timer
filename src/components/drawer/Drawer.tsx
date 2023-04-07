@@ -7,7 +7,7 @@ import { useTheme } from '../../theming/use-theme';
 import { Button } from '../../lib/components/buttons/Button';
 import { useZIndexes } from '../../theming/use-z-indexes';
 
-const SCREEN_HEIGHT_PERCENTAGE = 70;
+const HEIGHT_PERCENTAGE = '70%';
 const SHADOW_COLOR = '#000';
 
 export const Drawer = () => {
@@ -16,7 +16,6 @@ export const Drawer = () => {
   const { drawer: drawerZIndex } = useZIndexes();
 
   const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
-  const drawerHeight = screenHeight * SCREEN_HEIGHT_PERCENTAGE * 0.01;
 
   const { drawerState, setDrawerState } = useContext(GlobalContext);
 
@@ -29,9 +28,9 @@ export const Drawer = () => {
       <Pressable
         style={{
           position: 'absolute',
-          bottom: drawerHeight,
+          bottom: 0,
           width: screenWidth,
-          height: screenHeight - drawerHeight,
+          height: screenHeight,
           backgroundColor: SHADOW_COLOR,
           opacity: drawerShadowOpacity,
           zIndex: drawerZIndex,
@@ -43,7 +42,7 @@ export const Drawer = () => {
           position: 'absolute',
           bottom: 0,
           width: screenWidth,
-          height: drawerHeight,
+          height: HEIGHT_PERCENTAGE,
           zIndex: drawerZIndex,
         }}
       >
