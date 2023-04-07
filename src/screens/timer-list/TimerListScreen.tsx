@@ -21,11 +21,16 @@ export const TimerListScreen = ({
 
   const { setDrawerState } = useContext(GlobalContext);
 
+  const deleteTimer = ({ id: idToDelete }: Timer) => {
+    setTimers(timers.filter(({ id }) => id !== idToDelete));
+  };
+
   const renderTimer = (timer: Timer) => (
     <TimerListItem
       key={timer.id}
       timer={timer}
       onTimerSelected={() => onTimerSelected(timer)}
+      onDeletePressed={() => deleteTimer(timer)}
     />
   );
 

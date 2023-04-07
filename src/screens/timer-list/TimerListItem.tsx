@@ -1,4 +1,4 @@
-import React from 'react-native';
+import React, { View } from 'react-native';
 import { Text } from '../../lib/components/Text';
 import { Timer } from '../../model/types';
 import { Card } from '../../lib/components/Card';
@@ -8,9 +8,11 @@ import { useSizes } from '../../theming/use-sizes';
 export const TimerListItem = ({
   timer: { name },
   onTimerSelected,
+  onDeletePressed,
 }: {
   timer: Timer;
   onTimerSelected: () => void;
+  onDeletePressed: () => void;
 }) => {
   const { small } = useSizes();
 
@@ -24,7 +26,10 @@ export const TimerListItem = ({
       }}
     >
       <Text>{name}</Text>
-      <Button title="Go" onPress={onTimerSelected} />
+      <View style={{ flexDirection: 'row', gap: small }}>
+        <Button title="Delete" onPress={onDeletePressed} />
+        <Button title="Go" onPress={onTimerSelected} />
+      </View>
     </Card>
   );
 };
