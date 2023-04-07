@@ -1,13 +1,14 @@
+import * as O from 'fp-ts/Option';
 import { useState } from 'react';
-import { DEFAULT_GLOBAL_CONTEXT, GlobalContext } from './GlobalContext';
 import { getAsyncStorageHook } from '../lib/hooks/use-async-storage';
 import { ThemeType, isThemeType } from '../theming/types';
+import { DEFAULT_GLOBAL_CONTEXT, GlobalContext } from './GlobalContext';
 
 const THEME_TYPE_KEY = 'theme-type';
 
 const useAsyncThemeTypeStorage = getAsyncStorageHook<ThemeType>({
   serialise: themeType => themeType,
-  deserialise: s => (isThemeType(s) ? s : null),
+  deserialise: O.fromPredicate(isThemeType),
 });
 
 export const useGlobalContext = (): GlobalContext => {

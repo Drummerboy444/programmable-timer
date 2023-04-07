@@ -1,5 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
+import * as O from 'fp-ts/Option';
+import { pipe } from 'fp-ts/lib/function';
+
+const getItemOptional = async (key: string) =>
+  O.fromNullable(await AsyncStorage.getItem(key));
 
 export const getAsyncStorageHook =
   <T>({
@@ -7,17 +12,19 @@ export const getAsyncStorageHook =
     deserialise,
   }: {
     serialise: (t: T) => string;
-    deserialise: (s: string) => T | null;
+    deserialise: (s: string) => O.Option<T>;
   }) =>
   ({ key, defaultValue }: { key: string; defaultValue: T }) => {
     const [value, setValue] = useState<T>(defaultValue);
 
     useEffect(() => {
       const getInitialValue = async () => {
-        const serialisedItem = await AsyncStorage.getItem(key);
-        const deserialisedItem =
-          serialisedItem === null ? null : deserialise(serialisedItem);
-        setValue(deserialisedItem === null ? defaultValue : deserialisedItem);
+        pipe(
+          await getItemOptional(key),
+          O.chain(deserialise),
+          O.getOrElse(() => defaultValue),
+          setValue,
+        );
       };
       getInitialValue();
     }, [defaultValue, key]);
