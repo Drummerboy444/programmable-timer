@@ -8,6 +8,7 @@ export type Theme = {
   primaryColor: Color;
   secondaryColor: Color;
   backgroundColor: Color;
+  disabledColor: Color;
   textColor: Color;
   borderColor: Color;
   drawerShadowOpacity: number;

@@ -1,24 +1,44 @@
+import { useContext } from 'react';
 import React, { View } from 'react-native';
-import { Text } from '../../lib/components/Text';
-import { Screen } from '../Screen';
+import { GlobalContext } from '../../global-context/GlobalContext';
+import { Button } from '../../lib/components/buttons/Button';
 import { Timer, TimingUnit } from '../../model/types';
-import { Card } from '../../lib/components/Card';
+import { useSizes } from '../../theming/use-sizes';
+import { Screen } from '../Screen';
+import { NewTimingUnitForm } from './NewTimingUnitForm';
+import { TimingUnitListItem } from './TimingUnitListItem';
 
 export const TimerScreen = ({
-  timer: { name, timingUnits },
+  timer,
+  setTimer,
 }: {
   timer: Timer;
+  setTimer: (timer: Timer) => void;
 }) => {
-  const renderTimingUnit = ({ id, name: timingUnitName }: TimingUnit) => (
-    <Card key={id}>
-      <Text>{timingUnitName}</Text>
-    </Card>
-  );
+  const { small } = useSizes();
+
+  const { setDrawerState } = useContext(GlobalContext);
+
+  const addNewTimingUnit = (timingUnit: TimingUnit) => {
+    setTimer({ ...timer, timingUnits: [...timer.timingUnits, timingUnit] });
+    setDrawerState({ open: false });
+  };
+
+  const openDrawer = () => {
+    setDrawerState({
+      open: true,
+      content: <NewTimingUnitForm onSubmit={addNewTimingUnit} />,
+    });
+  };
 
   return (
     <Screen>
-      <Text>This is the timer screen for: {name}</Text>
-      <View>{timingUnits.map(renderTimingUnit)}</View>
+      <View style={{ gap: small }}>
+        {timer.timingUnits.map(timingUnit => (
+          <TimingUnitListItem key={timingUnit.id} timingUnit={timingUnit} />
+        ))}
+        <Button title="New +" onPress={openDrawer} />
+      </View>
     </Screen>
   );
 };

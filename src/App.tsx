@@ -26,6 +26,13 @@ export const App = () => {
     });
   };
 
+  const setTimer = (timerToSet: Timer) => {
+    setTimers(
+      timers.map(timer => (timer.id === timerToSet.id ? timerToSet : timer)),
+    );
+    setNavigationState({ screen: 'timer', timer: timerToSet });
+  };
+
   const renderScreen = () => {
     if (navigationState.screen === 'timer-list') {
       return (
@@ -38,7 +45,7 @@ export const App = () => {
     }
 
     if (navigationState.screen === 'timer') {
-      return <TimerScreen timer={navigationState.timer} />;
+      return <TimerScreen timer={navigationState.timer} setTimer={setTimer} />;
     }
 
     return <SettingsScreen />;

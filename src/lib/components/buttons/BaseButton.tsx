@@ -3,11 +3,13 @@ import React, { Pressable } from 'react-native';
 
 export const BaseButton = ({
   onPress,
+  disabled,
   style,
   onPressStyle,
   children,
 }: PropsWithChildren<{
   onPress?: () => void;
+  disabled?: boolean;
   style?: React.ViewStyle;
   onPressStyle?: React.ViewStyle;
 }>) => (
@@ -16,6 +18,7 @@ export const BaseButton = ({
       ...(pressed && onPressStyle !== undefined ? onPressStyle : style),
     })}
     onPress={onPress}
+    disabled={disabled}
   >
     {children}
   </Pressable>

@@ -7,15 +7,15 @@ import { useSizes } from '../../../theming/use-sizes';
 export const Button = ({
   title,
   onPress,
+  disabled,
   style,
-  onPressStyle,
 }: {
   title: string;
   onPress?: () => void;
+  disabled?: boolean;
   style?: React.ViewStyle;
-  onPressStyle?: React.ViewStyle;
 }) => {
-  const { primaryColor, secondaryColor } = useTheme();
+  const { primaryColor, secondaryColor, disabledColor } = useTheme();
   const { medium } = useSizes();
 
   const baseStyle: React.ViewStyle = {
@@ -27,12 +27,18 @@ export const Button = ({
   return (
     <BaseButton
       {...(onPress === undefined ? {} : { onPress })}
-      style={{ ...baseStyle, ...style }}
+      {...(disabled === undefined ? {} : { disabled })}
+      style={{
+        ...baseStyle,
+        ...(disabled !== undefined && disabled
+          ? { backgroundColor: disabledColor }
+          : {}),
+        ...style,
+      }}
       onPressStyle={{
         ...baseStyle,
         backgroundColor: secondaryColor,
         ...style,
-        ...onPressStyle,
       }}
     >
       <Text>{title}</Text>

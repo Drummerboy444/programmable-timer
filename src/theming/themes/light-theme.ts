@@ -4,6 +4,7 @@ export const lightTheme: Theme = {
   primaryColor: '#2dc7cc',
   secondaryColor: '#0e7d77',
   backgroundColor: '#fff',
+  disabledColor: '#777',
   textColor: '#000',
   borderColor: '#aaa',
   drawerShadowOpacity: 0.25,

@@ -1,10 +1,9 @@
 import React, { View } from 'react-native';
 import { useState } from 'react';
-import { Text } from '../../lib/components/Text';
 import { Button } from '../../lib/components/buttons/Button';
 import { getUuid } from '../../lib/utils/uuid';
 import { Timer } from '../../model/types';
-import { TextInput } from '../../lib/components/TextInput';
+import { TextInput } from '../../lib/components/input/TextInput';
 import { useSizes } from '../../theming/use-sizes';
 
 export const NewTimerForm = ({
@@ -20,18 +19,9 @@ export const NewTimerForm = ({
   };
 
   return (
-    <>
-      <Text>Name:</Text>
-      <TextInput value={name} setValue={setName} />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'flex-end',
-          marginTop: medium,
-        }}
-      >
-        <Button title="Create" onPress={onPress} />
-      </View>
-    </>
+    <View style={{ gap: medium }}>
+      <TextInput value={name} setValue={setName} label="Name" />
+      <Button title="Create" onPress={onPress} />
+    </View>
   );
 };
