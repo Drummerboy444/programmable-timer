@@ -10,6 +10,7 @@ import { PlayButton } from './PlayButton';
 import { TimingUnitListItem } from './TimingUnitListItem';
 import { useTimer } from './useTimer';
 import { Text } from '../../lib/components/Text';
+import { toSeconds } from '../../lib/utils/time-display';
 
 export const TimerScreen = ({
   timer,
@@ -47,7 +48,7 @@ export const TimerScreen = ({
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: small }}>
         <Button title="Reset" onPress={reset} />
         <PlayButton playing={playing} togglePlaying={togglePlaying} />
-        <Text>Time elapsed: {timeElapsed}</Text>
+        <Text>Time elapsed: {toSeconds(timeElapsed)}</Text>
       </View>
     </Screen>
   );

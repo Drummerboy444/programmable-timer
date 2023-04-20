@@ -3,8 +3,7 @@ import { Card } from '../../lib/components/Card';
 import { TimingUnit } from '../../model/types';
 import { Text } from '../../lib/components/Text';
 import { useSizes } from '../../theming/use-sizes';
-
-const renderLength = (length: number) => `${Math.floor(length / 1000)}s`;
+import { toSeconds } from '../../lib/utils/time-display';
 
 export const TimingUnitListItem = ({
   timingUnit: { id, name, length },
@@ -23,7 +22,7 @@ export const TimingUnitListItem = ({
       }}
     >
       <Text>{name}</Text>
-      <Text>{renderLength(length)}</Text>
+      <Text>{toSeconds(length)}</Text>
     </Card>
   );
 };
