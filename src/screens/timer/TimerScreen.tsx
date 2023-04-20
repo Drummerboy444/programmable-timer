@@ -9,8 +9,7 @@ import { NewTimingUnitForm } from './NewTimingUnitForm';
 import { PlayButton } from './PlayButton';
 import { TimingUnitListItem } from './TimingUnitListItem';
 import { useTimer } from './useTimer';
-import { Text } from '../../lib/components/Text';
-import { toSeconds } from '../../lib/utils/time-display';
+import { appendTimeElapsed } from './appendTimeElapsed';
 
 export const TimerScreen = ({
   timer,
@@ -40,15 +39,19 @@ export const TimerScreen = ({
   return (
     <Screen style={{ justifyContent: 'space-between' }}>
       <View style={{ gap: small }}>
-        {timer.timingUnits.map(timingUnit => (
-          <TimingUnitListItem key={timingUnit.id} timingUnit={timingUnit} />
-        ))}
+        {appendTimeElapsed(timer.timingUnits, timeElapsed).map(
+          timingUnitWithTimeElapsed => (
+            <TimingUnitListItem
+              key={timingUnitWithTimeElapsed.id}
+              timingUnitWithTimeElapsed={timingUnitWithTimeElapsed}
+            />
+          ),
+        )}
         <Button title="New +" onPress={openDrawer} />
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: small }}>
         <Button title="Reset" onPress={reset} />
         <PlayButton playing={playing} togglePlaying={togglePlaying} />
-        <Text>Time elapsed: {toSeconds(timeElapsed)}</Text>
       </View>
     </Screen>
   );

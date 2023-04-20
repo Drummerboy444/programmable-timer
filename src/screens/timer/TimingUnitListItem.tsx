@@ -6,9 +6,9 @@ import { useSizes } from '../../theming/use-sizes';
 import { toSeconds } from '../../lib/utils/time-display';
 
 export const TimingUnitListItem = ({
-  timingUnit: { id, name, length },
+  timingUnitWithTimeElapsed: { id, name, length, timeElapsed },
 }: {
-  timingUnit: TimingUnit;
+  timingUnitWithTimeElapsed: TimingUnit & { timeElapsed: number };
 }) => {
   const { small } = useSizes();
 
@@ -22,7 +22,9 @@ export const TimingUnitListItem = ({
       }}
     >
       <Text>{name}</Text>
-      <Text>{toSeconds(length)}</Text>
+      <Text>
+        {toSeconds(timeElapsed)}/{toSeconds(length)}
+      </Text>
     </Card>
   );
 };
