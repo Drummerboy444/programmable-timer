@@ -47,7 +47,7 @@ export const NewTimingUnitForm = ({
   return (
     <View style={{ gap: medium }}>
       <TextInput value={name} setValue={setName} label="Name" />
-      <NumericInput value={length} setValue={setLength} label="Length" />
+      <NumericInput value={length} setValue={setLength} label="Length (s)" />
       {createButton}
     </View>
   );

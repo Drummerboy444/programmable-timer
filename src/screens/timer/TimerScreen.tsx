@@ -6,7 +6,10 @@ import { Timer, TimingUnit } from '../../model/types';
 import { useSizes } from '../../theming/use-sizes';
 import { Screen } from '../Screen';
 import { NewTimingUnitForm } from './NewTimingUnitForm';
+import { PlayButton } from './PlayButton';
 import { TimingUnitListItem } from './TimingUnitListItem';
+import { useTimer } from './useTimer';
+import { Text } from '../../lib/components/Text';
 
 export const TimerScreen = ({
   timer,
@@ -31,13 +34,20 @@ export const TimerScreen = ({
     });
   };
 
+  const { playing, timeElapsed, togglePlaying, reset } = useTimer();
+
   return (
-    <Screen>
+    <Screen style={{ justifyContent: 'space-between' }}>
       <View style={{ gap: small }}>
         {timer.timingUnits.map(timingUnit => (
           <TimingUnitListItem key={timingUnit.id} timingUnit={timingUnit} />
         ))}
         <Button title="New +" onPress={openDrawer} />
+      </View>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: small }}>
+        <Button title="Reset" onPress={reset} />
+        <PlayButton playing={playing} togglePlaying={togglePlaying} />
+        <Text>Time elapsed: {timeElapsed}</Text>
       </View>
     </Screen>
   );
