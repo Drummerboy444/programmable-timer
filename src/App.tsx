@@ -1,6 +1,7 @@
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { useContext } from 'react';
 import React, { Platform, SafeAreaView, StatusBar } from 'react-native';
+import { absurd } from 'fp-ts/lib/function';
 import { Drawer } from './components/drawer/Drawer';
 import { NavigationHeader } from './components/navigation-header/NavigationHeader';
 import { useNavigation } from './components/navigation-header/use-navigation';
@@ -34,21 +35,25 @@ export const App = () => {
   };
 
   const renderScreen = () => {
-    if (navigationState.screen === 'timer-list') {
-      return (
-        <TimerListScreen
-          timers={timers}
-          setTimers={setTimers}
-          onTimerSelected={onTimerPressed}
-        />
-      );
+    const { screen } = navigationState;
+    switch (screen) {
+      case 'timer-list':
+        return (
+          <TimerListScreen
+            timers={timers}
+            setTimers={setTimers}
+            onTimerSelected={onTimerPressed}
+          />
+        );
+      case 'timer':
+        return (
+          <TimerScreen timer={navigationState.timer} setTimer={setTimer} />
+        );
+      case 'settings':
+        return <SettingsScreen />;
+      default:
+        return absurd<never>(screen);
     }
-
-    if (navigationState.screen === 'timer') {
-      return <TimerScreen timer={navigationState.timer} setTimer={setTimer} />;
-    }
-
-    return <SettingsScreen />;
   };
 
   return (
