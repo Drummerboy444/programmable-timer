@@ -47,7 +47,7 @@ export const Drawer = () => {
         }}
       >
         <Button title="Close" onPress={closeDrawer} />
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps="always">
           <View style={{ padding: extraLarge }}>{drawerState.content}</View>
         </ScrollView>
       </Card>
