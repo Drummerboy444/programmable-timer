@@ -8,9 +8,15 @@ import { IconButton } from '../../lib/components/buttons/IconButton';
 
 export const TimingUnitListItem = ({
   timingUnitWithTimeElapsed: { id, name, length, timeElapsed },
+  canEdit,
+  onMoveUp,
+  onMoveDown,
   onDelete,
 }: {
   timingUnitWithTimeElapsed: TimingUnit & { timeElapsed: number };
+  canEdit: boolean;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
   onDelete: () => void;
 }) => {
   const { small } = useSizes();
@@ -25,7 +31,13 @@ export const TimingUnitListItem = ({
       }}
     >
       <Text>{name}</Text>
-      <IconButton icon="BIN" onPress={onDelete} />
+      {canEdit ? (
+        <>
+          <IconButton icon="UP" onPress={onMoveUp} />
+          <IconButton icon="DOWN" onPress={onMoveDown} />
+          <IconButton icon="BIN" onPress={onDelete} />
+        </>
+      ) : undefined}
       <Text>
         {toSeconds(timeElapsed)}/{toSeconds(length)}
       </Text>

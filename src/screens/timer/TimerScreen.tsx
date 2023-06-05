@@ -34,6 +34,42 @@ export const TimerScreen = ({
     });
   };
 
+  const moveTimingUnitUp = (index: number) => {
+    if (index === 0) return;
+
+    const timingUnitsCopy = [...timer.timingUnits];
+    const firstTimingUnit = timer.timingUnits[index - 1];
+    const secondTimingUnit = timer.timingUnits[index];
+
+    if (firstTimingUnit === undefined || secondTimingUnit === undefined) return;
+
+    timingUnitsCopy[index - 1] = secondTimingUnit;
+    timingUnitsCopy[index] = firstTimingUnit;
+
+    setTimer({
+      ...timer,
+      timingUnits: timingUnitsCopy,
+    });
+  };
+
+  const moveTimingUnitDown = (index: number) => {
+    if (index === timer.timingUnits.length - 1) return;
+
+    const timingUnitsCopy = [...timer.timingUnits];
+    const firstTimingUnit = timer.timingUnits[index];
+    const secondTimingUnit = timer.timingUnits[index + 1];
+
+    if (firstTimingUnit === undefined || secondTimingUnit === undefined) return;
+
+    timingUnitsCopy[index] = secondTimingUnit;
+    timingUnitsCopy[index + 1] = firstTimingUnit;
+
+    setTimer({
+      ...timer,
+      timingUnits: timingUnitsCopy,
+    });
+  };
+
   const openDrawer = () => {
     setDrawerState({
       open: true,
@@ -54,10 +90,13 @@ export const TimerScreen = ({
     <Screen style={{ justifyContent: 'space-between' }}>
       <View style={{ gap: small }}>
         {appendTimeElapsed(timer.timingUnits, timeElapsed).map(
-          timingUnitWithTimeElapsed => (
+          (timingUnitWithTimeElapsed, i) => (
             <TimingUnitListItem
               key={timingUnitWithTimeElapsed.id}
               timingUnitWithTimeElapsed={timingUnitWithTimeElapsed}
+              canEdit={!playing}
+              onMoveUp={() => moveTimingUnitUp(i)}
+              onMoveDown={() => moveTimingUnitDown(i)}
               onDelete={() => deleteTimingUnit(timingUnitWithTimeElapsed.id)}
             />
           ),
