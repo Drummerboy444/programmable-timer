@@ -15,13 +15,21 @@ const SUBMIT_BUTTON_TEXT = 'Create';
 
 export const NewTimingUnitForm = ({
   onSubmit,
+  defaultValues,
 }: {
   onSubmit: (timingUnit: TimingUnit) => void;
+  defaultValues?: Omit<TimingUnit, 'id'>;
 }) => {
   const { medium } = useSizes();
 
-  const [name, setName] = useState('');
-  const [length, setLength] = useState<O.Option<number>>(O.none);
+  const [name, setName] = useState(
+    defaultValues === undefined ? '' : defaultValues.name,
+  );
+  const [length, setLength] = useState<O.Option<number>>(
+    defaultValues === undefined
+      ? O.none
+      : O.some(Math.floor(defaultValues.length / 1_000)),
+  );
 
   const createButton = pipe(
     O.Do,

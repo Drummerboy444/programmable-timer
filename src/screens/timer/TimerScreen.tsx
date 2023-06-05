@@ -70,7 +70,24 @@ export const TimerScreen = ({
     });
   };
 
-  const openDrawer = () => {
+  const openEditTimingUnitDrawer = (timingUnit: TimingUnit, index: number) => {
+    setDrawerState({
+      open: true,
+      content: (
+        <NewTimingUnitForm
+          onSubmit={newTimingUnit => {
+            const timingUnitsCopy = [...timer.timingUnits];
+            timingUnitsCopy[index] = newTimingUnit;
+            setTimer({ ...timer, timingUnits: timingUnitsCopy });
+            setDrawerState({ open: false });
+          }}
+          defaultValues={timingUnit}
+        />
+      ),
+    });
+  };
+
+  const openNewTimingUnitDrawer = () => {
     setDrawerState({
       open: true,
       content: (
@@ -95,13 +112,16 @@ export const TimerScreen = ({
               key={timingUnitWithTimeElapsed.id}
               timingUnitWithTimeElapsed={timingUnitWithTimeElapsed}
               canEdit={!playing}
+              onEdit={() =>
+                openEditTimingUnitDrawer(timingUnitWithTimeElapsed, i)
+              }
               onMoveUp={() => moveTimingUnitUp(i)}
               onMoveDown={() => moveTimingUnitDown(i)}
               onDelete={() => deleteTimingUnit(timingUnitWithTimeElapsed.id)}
             />
           ),
         )}
-        <Button title="New +" onPress={openDrawer} />
+        <Button title="New +" onPress={openNewTimingUnitDrawer} />
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: small }}>
         <Button title="Reset" onPress={reset} />

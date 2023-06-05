@@ -1,12 +1,13 @@
 import React from 'react-native';
 import { Button } from './Button';
 
-type Icon = 'BIN' | 'UP' | 'DOWN';
+type Icon = 'BIN' | 'UP' | 'DOWN' | 'EDIT';
 
 const ICON_LOOKUP: Record<Icon, string> = {
   BIN: '🗑',
-  UP: '⬆',
-  DOWN: '⬇',
+  UP: '☝️',
+  DOWN: '👇',
+  EDIT: '✏️',
 };
 
 export const IconButton = ({

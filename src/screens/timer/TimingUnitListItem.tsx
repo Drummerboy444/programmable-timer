@@ -9,12 +9,14 @@ import { IconButton } from '../../lib/components/buttons/IconButton';
 export const TimingUnitListItem = ({
   timingUnitWithTimeElapsed: { id, name, length, timeElapsed },
   canEdit,
+  onEdit,
   onMoveUp,
   onMoveDown,
   onDelete,
 }: {
   timingUnitWithTimeElapsed: TimingUnit & { timeElapsed: number };
   canEdit: boolean;
+  onEdit: () => void;
   onMoveUp: () => void;
   onMoveDown: () => void;
   onDelete: () => void;
@@ -33,6 +35,7 @@ export const TimingUnitListItem = ({
       <Text>{name}</Text>
       {canEdit ? (
         <>
+          <IconButton icon="EDIT" onPress={onEdit} />
           <IconButton icon="UP" onPress={onMoveUp} />
           <IconButton icon="DOWN" onPress={onMoveDown} />
           <IconButton icon="BIN" onPress={onDelete} />
