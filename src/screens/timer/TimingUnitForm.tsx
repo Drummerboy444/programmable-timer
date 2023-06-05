@@ -11,12 +11,12 @@ import { getUuid } from '../../lib/utils/uuid';
 import { TimingUnit } from '../../model/types';
 import { useSizes } from '../../theming/use-sizes';
 
-const SUBMIT_BUTTON_TEXT = 'Create';
-
-export const NewTimingUnitForm = ({
+export const TimingUnitForm = ({
+  submitButtonText,
   onSubmit,
   defaultValues,
 }: {
+  submitButtonText: string;
   onSubmit: (timingUnit: TimingUnit) => void;
   defaultValues?: Omit<TimingUnit, 'id'>;
 }) => {
@@ -36,10 +36,10 @@ export const NewTimingUnitForm = ({
     O.apS('newName', O.fromPredicate(P.not(S.isEmpty))(name)),
     O.apS('newLength', length),
     O.match(
-      () => <Button title={SUBMIT_BUTTON_TEXT} disabled />,
+      () => <Button title={submitButtonText} disabled />,
       ({ newName, newLength }) => (
         <Button
-          title={SUBMIT_BUTTON_TEXT}
+          title={submitButtonText}
           onPress={() => {
             onSubmit({
               id: getUuid(),

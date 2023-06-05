@@ -5,7 +5,7 @@ import { Button } from '../../lib/components/buttons/Button';
 import { Timer, TimingUnit } from '../../model/types';
 import { useSizes } from '../../theming/use-sizes';
 import { Screen } from '../Screen';
-import { NewTimingUnitForm } from './NewTimingUnitForm';
+import { TimingUnitForm } from './TimingUnitForm';
 import { PlayButton } from './PlayButton';
 import { TimingUnitListItem } from './TimingUnitListItem';
 import { useTimer } from './useTimer';
@@ -74,7 +74,8 @@ export const TimerScreen = ({
     setDrawerState({
       open: true,
       content: (
-        <NewTimingUnitForm
+        <TimingUnitForm
+          submitButtonText="Update"
           onSubmit={newTimingUnit => {
             const timingUnitsCopy = [...timer.timingUnits];
             timingUnitsCopy[index] = newTimingUnit;
@@ -91,7 +92,8 @@ export const TimerScreen = ({
     setDrawerState({
       open: true,
       content: (
-        <NewTimingUnitForm
+        <TimingUnitForm
+          submitButtonText="Create"
           onSubmit={timingUnit => {
             addTimingUnit(timingUnit);
             setDrawerState({ open: false });
