@@ -10,6 +10,7 @@ import { PlayButton } from './PlayButton';
 import { TimingUnitListItem } from './TimingUnitListItem';
 import { useTimer } from './useTimer';
 import { appendTimeElapsed } from './appendTimeElapsed';
+import { Uuid } from '../../lib/utils/uuid';
 
 export const TimerScreen = ({
   timer,
@@ -22,15 +23,28 @@ export const TimerScreen = ({
 
   const { setDrawerState } = useContext(GlobalContext);
 
-  const addNewTimingUnit = (timingUnit: TimingUnit) => {
+  const addTimingUnit = (timingUnit: TimingUnit) => {
     setTimer({ ...timer, timingUnits: [...timer.timingUnits, timingUnit] });
-    setDrawerState({ open: false });
+  };
+
+  const deleteTimingUnit = (idToRemove: Uuid) => {
+    setTimer({
+      ...timer,
+      timingUnits: timer.timingUnits.filter(({ id }) => id !== idToRemove),
+    });
   };
 
   const openDrawer = () => {
     setDrawerState({
       open: true,
-      content: <NewTimingUnitForm onSubmit={addNewTimingUnit} />,
+      content: (
+        <NewTimingUnitForm
+          onSubmit={timingUnit => {
+            addTimingUnit(timingUnit);
+            setDrawerState({ open: false });
+          }}
+        />
+      ),
     });
   };
 
@@ -44,6 +58,7 @@ export const TimerScreen = ({
             <TimingUnitListItem
               key={timingUnitWithTimeElapsed.id}
               timingUnitWithTimeElapsed={timingUnitWithTimeElapsed}
+              onDelete={() => deleteTimingUnit(timingUnitWithTimeElapsed.id)}
             />
           ),
         )}
