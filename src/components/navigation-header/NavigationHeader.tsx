@@ -3,8 +3,7 @@ import { Text } from '../../lib/components/Text';
 import { Button } from '../../lib/components/buttons/Button';
 import { Card } from '../../lib/components/Card';
 import { useSizes } from '../../theming/use-sizes';
-import { Screen } from '../../screens/types';
-import { NavigationState } from './use-navigation';
+import { NavigationState, Screen } from './use-navigation';
 
 const TITLE_LOOKUP: Record<Exclude<Screen, 'timer'>, string> = {
   'timer-list': 'Programmable Timer',

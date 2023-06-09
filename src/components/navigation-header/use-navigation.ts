@@ -13,6 +13,8 @@ export type NavigationState =
       screen: 'settings';
     };
 
+export type Screen = NavigationState['screen'];
+
 const DEFAULT_SCREEN = 'timer-list';
 
 export const useNavigation = () => {
