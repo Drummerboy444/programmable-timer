@@ -9,7 +9,7 @@ import { GlobalContext } from './global-context/GlobalContext';
 import { Timer } from './model/types';
 import { SettingsScreen } from './screens/settings/SettingsScreen';
 import { TimerListScreen } from './screens/timer-list/TimerListScreen';
-import { TimerScreen } from './screens/timer/TimerScreen';
+import { TimerFormScreen } from './screens/timer-form/TimerFormScreen';
 import { useTheme } from './theming/use-theme';
 import { useTimers } from './model/use-timers';
 
@@ -22,7 +22,7 @@ export const App = () => {
 
   const onTimerPressed = (timer: Timer) => {
     setNavigationState({
-      screen: 'timer',
+      screen: 'timer-form',
       timer,
     });
   };
@@ -31,7 +31,7 @@ export const App = () => {
     setTimers(
       timers.map(timer => (timer.id === timerToSet.id ? timerToSet : timer)),
     );
-    setNavigationState({ screen: 'timer', timer: timerToSet });
+    setNavigationState({ screen: 'timer-form', timer: timerToSet });
   };
 
   const renderScreen = () => {
@@ -45,9 +45,9 @@ export const App = () => {
             onTimerSelected={onTimerPressed}
           />
         );
-      case 'timer':
+      case 'timer-form':
         return (
-          <TimerScreen timer={navigationState.timer} setTimer={setTimer} />
+          <TimerFormScreen timer={navigationState.timer} setTimer={setTimer} />
         );
       case 'settings':
         return <SettingsScreen />;

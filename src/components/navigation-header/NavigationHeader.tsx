@@ -5,13 +5,14 @@ import { Card } from '../../lib/components/Card';
 import { useSizes } from '../../theming/use-sizes';
 import { NavigationState, Screen } from './use-navigation';
 
-const TITLE_LOOKUP: Record<Exclude<Screen, 'timer'>, string> = {
+const TITLE_LOOKUP: Record<Exclude<Screen, 'timer-form'>, string> = {
   'timer-list': 'Programmable Timer',
   settings: 'Settings',
 };
 
 const getTitle = (navigationState: NavigationState) => {
-  if (navigationState.screen === 'timer') return navigationState.timer.name;
+  if (navigationState.screen === 'timer-form')
+    return navigationState.timer.name;
   return TITLE_LOOKUP[navigationState.screen];
 };
 

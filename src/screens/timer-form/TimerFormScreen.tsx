@@ -12,7 +12,7 @@ import { useTimer } from './useTimer';
 import { appendTimeElapsed } from './appendTimeElapsed';
 import { Uuid } from '../../lib/utils/uuid';
 
-export const TimerScreen = ({
+export const TimerFormScreen = ({
   timer,
   setTimer,
 }: {

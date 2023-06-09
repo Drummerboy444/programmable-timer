@@ -6,7 +6,7 @@ export type NavigationState =
       screen: 'timer-list';
     }
   | {
-      screen: 'timer';
+      screen: 'timer-form';
       timer: Timer;
     }
   | {
