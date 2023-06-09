@@ -23,10 +23,16 @@ export const useGlobalContext = (): GlobalContext => {
     DEFAULT_GLOBAL_CONTEXT.drawerState,
   );
 
+  const [navigationState, setNavigationState] = useState(
+    DEFAULT_GLOBAL_CONTEXT.navigationState,
+  );
+
   return {
     themeType,
     setThemeType,
     drawerState,
     setDrawerState,
+    navigationState,
+    setNavigationState,
   };
 };

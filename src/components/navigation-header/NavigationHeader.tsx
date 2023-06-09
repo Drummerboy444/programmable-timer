@@ -1,11 +1,13 @@
 import React from 'react-native';
+import { useContext } from 'react';
 import { Text } from '../../lib/components/Text';
 import { Button } from '../../lib/components/buttons/Button';
 import { Card } from '../../lib/components/Card';
 import { useSizes } from '../../theming/use-sizes';
-import { NavigationState, Screen } from './use-navigation';
+import { NavigationState, Screen } from '../../global-context/types';
+import { GlobalContext } from '../../global-context/GlobalContext';
 
-const TITLE_LOOKUP: Record<Exclude<Screen, 'timer-form'>, string> = {
+const TITLE_LOOKUP: Record<Exclude<Screen, 'timer-form' | 'timer'>, string> = {
   'timer-list': 'Programmable Timer',
   settings: 'Settings',
 };
@@ -18,13 +20,11 @@ const getTitle = (navigationState: NavigationState) => {
 
 export const NavigationHeader = ({
   navigationState,
-  goToTimerListScreen,
-  goToSettingsScreen,
 }: {
   navigationState: NavigationState;
-  goToTimerListScreen: () => void;
-  goToSettingsScreen: () => void;
 }) => {
+  const { setNavigationState } = useContext(GlobalContext);
+
   const { screen: currentScreen } = navigationState;
 
   const { medium } = useSizes();
@@ -42,13 +42,19 @@ export const NavigationHeader = ({
       }}
     >
       {shouldDisplayBackButton ? (
-        <Button title="Go back" onPress={goToTimerListScreen} />
+        <Button
+          title="Go back"
+          onPress={() => setNavigationState({ screen: 'timer-list' })}
+        />
       ) : undefined}
 
       <Text>{getTitle(navigationState)}</Text>
 
       {shouldDisplaySettingsButton ? (
-        <Button title="Go to settings" onPress={goToSettingsScreen} />
+        <Button
+          title="Go to settings"
+          onPress={() => setNavigationState({ screen: 'settings' })}
+        />
       ) : undefined}
     </Card>
   );

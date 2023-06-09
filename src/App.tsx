@@ -4,7 +4,6 @@ import React, { Platform, SafeAreaView, StatusBar } from 'react-native';
 import { absurd } from 'fp-ts/lib/function';
 import { Drawer } from './components/drawer/Drawer';
 import { NavigationHeader } from './components/navigation-header/NavigationHeader';
-import { useNavigation } from './components/navigation-header/use-navigation';
 import { GlobalContext } from './global-context/GlobalContext';
 import { Timer } from './model/types';
 import { SettingsScreen } from './screens/settings/SettingsScreen';
@@ -15,9 +14,9 @@ import { useTimers } from './model/use-timers';
 
 export const App = () => {
   const { backgroundColor } = useTheme();
-  const { themeType } = useContext(GlobalContext);
+  const { themeType, navigationState, setNavigationState } =
+    useContext(GlobalContext);
 
-  const { navigationState, setNavigationState } = useNavigation();
   const { timers, setTimers } = useTimers();
 
   const onTimerPressed = (timer: Timer) => {
@@ -65,11 +64,7 @@ export const App = () => {
       }}
     >
       <ExpoStatusBar style={themeType === 'dark' ? 'light' : 'dark'} />
-      <NavigationHeader
-        navigationState={navigationState}
-        goToTimerListScreen={() => setNavigationState({ screen: 'timer-list' })}
-        goToSettingsScreen={() => setNavigationState({ screen: 'settings' })}
-      />
+      <NavigationHeader navigationState={navigationState} />
       {renderScreen()}
       <Drawer />
     </SafeAreaView>
