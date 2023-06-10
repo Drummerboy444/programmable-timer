@@ -107,6 +107,8 @@ export const TimerFormScreen = ({
           <TimingUnitFormListItem
             key={timingUnit.id}
             timingUnit={timingUnit}
+            canMoveUp={i > 0}
+            canMoveDown={i < timer.timingUnits.length - 1}
             onEdit={() => openEditTimingUnitDrawer(timingUnit, i)}
             onMoveUp={() => moveTimingUnitUp(i)}
             onMoveDown={() => moveTimingUnitDown(i)}

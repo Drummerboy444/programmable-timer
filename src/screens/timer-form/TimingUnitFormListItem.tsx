@@ -8,12 +8,16 @@ import { IconButton } from '../../lib/components/buttons/IconButton';
 
 export const TimingUnitFormListItem = ({
   timingUnit: { id, length, name },
+  canMoveUp,
+  canMoveDown,
   onEdit,
   onMoveUp,
   onMoveDown,
   onDelete,
 }: {
   timingUnit: TimingUnit;
+  canMoveUp: boolean;
+  canMoveDown: boolean;
   onEdit: () => void;
   onMoveUp: () => void;
   onMoveDown: () => void;
@@ -32,8 +36,8 @@ export const TimingUnitFormListItem = ({
     >
       <Text>{name}</Text>
       <IconButton icon="EDIT" onPress={onEdit} />
-      <IconButton icon="UP" onPress={onMoveUp} />
-      <IconButton icon="DOWN" onPress={onMoveDown} />
+      {canMoveUp && <IconButton icon="UP" onPress={onMoveUp} />}
+      {canMoveDown && <IconButton icon="DOWN" onPress={onMoveDown} />}
       <IconButton icon="BIN" onPress={onDelete} />
       <Text>{toSeconds(length)}</Text>
     </Card>
