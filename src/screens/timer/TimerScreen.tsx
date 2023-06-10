@@ -1,6 +1,7 @@
 import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/lib/function';
 import React, { View } from 'react-native';
+import { useEffect } from 'react';
 import { useTimer } from '../../lib/hooks/use-timer';
 import { Timer } from '../../model/types';
 import { useSizes } from '../../theming/use-sizes';
@@ -18,6 +19,10 @@ export const TimerScreen = ({ timer }: { timer: Timer }) => {
     togglePlaying,
     reset,
   } = useTimer();
+
+  // The empty dependency is to act as componentDidMount.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => togglePlaying(), []);
 
   return (
     <Screen>
