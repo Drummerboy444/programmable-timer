@@ -3,42 +3,34 @@ import { useTheme } from '../../../theming/use-theme';
 import { Text } from '../Text';
 import { BaseButton } from './BaseButton';
 import { useSizes } from '../../../theming/use-sizes';
+import { noop } from '../../utils/noop';
 
 export const Button = ({
   title,
-  onPress,
-  disabled,
-  style,
+  onPress = noop,
+  disabled = false,
 }: {
   title: string;
   onPress?: () => void;
   disabled?: boolean;
-  style?: React.ViewStyle;
 }) => {
   const { primaryColor, pressedColor, disabledColor } = useTheme();
   const { medium } = useSizes();
 
-  const baseStyle: React.ViewStyle = {
-    backgroundColor: primaryColor,
-    alignSelf: 'flex-start',
-    padding: medium,
-  };
-
   return (
     <BaseButton
-      {...(onPress === undefined ? {} : { onPress })}
-      {...(disabled === undefined ? {} : { disabled })}
+      onPress={onPress}
+      disabled={disabled}
       style={{
-        ...baseStyle,
-        ...(disabled !== undefined && disabled
-          ? { backgroundColor: disabledColor }
-          : {}),
-        ...style,
+        backgroundColor: primaryColor,
+        alignSelf: 'flex-start',
+        padding: medium,
       }}
       onPressStyle={{
-        ...baseStyle,
         backgroundColor: pressedColor,
-        ...style,
+      }}
+      disabledStyle={{
+        backgroundColor: disabledColor,
       }}
     >
       <Text>{title}</Text>

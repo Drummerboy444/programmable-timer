@@ -6,16 +6,20 @@ export const BaseButton = ({
   disabled,
   style,
   onPressStyle,
+  disabledStyle,
   children,
 }: PropsWithChildren<{
   onPress?: () => void;
   disabled?: boolean;
   style?: React.ViewStyle;
   onPressStyle?: React.ViewStyle;
+  disabledStyle?: React.ViewStyle;
 }>) => (
   <Pressable
     style={({ pressed }) => ({
-      ...(pressed && onPressStyle !== undefined ? onPressStyle : style),
+      ...style,
+      ...(pressed ? onPressStyle : {}),
+      ...(disabled ? disabledStyle : {}),
     })}
     onPress={onPress}
     disabled={disabled}

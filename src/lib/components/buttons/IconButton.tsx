@@ -1,5 +1,7 @@
 import React from 'react-native';
-import { Button } from './Button';
+import { noop } from '../../utils/noop';
+import { BaseButton } from './BaseButton';
+import { Text } from '../Text';
 
 type Icon = 'BIN' | 'UP' | 'DOWN' | 'EDIT';
 
@@ -12,17 +14,20 @@ const ICON_LOOKUP: Record<Icon, string> = {
 
 export const IconButton = ({
   icon,
-  onPress,
+  onPress = noop,
+  disabled = false,
 }: {
   icon: Icon;
   onPress?: () => void;
+  disabled?: boolean;
 }) => (
-  <Button
-    title={ICON_LOOKUP[icon]}
-    {...(onPress === undefined ? {} : { onPress })}
+  <BaseButton
+    onPress={onPress}
+    disabled={disabled}
     style={{
-      backgroundColor: undefined,
-      padding: 0,
+      alignSelf: 'flex-start',
     }}
-  />
+  >
+    <Text>{ICON_LOOKUP[icon]}</Text>
+  </BaseButton>
 );
