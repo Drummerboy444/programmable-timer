@@ -11,6 +11,7 @@ import { TimerListScreen } from './screens/timer-list/TimerListScreen';
 import { TimerFormScreen } from './screens/timer-form/TimerFormScreen';
 import { useTheme } from './theming/use-theme';
 import { useTimers } from './model/use-timers';
+import { TimerScreen } from './screens/timer/TimerScreen';
 
 export const App = () => {
   const { backgroundColor } = useTheme();
@@ -48,6 +49,8 @@ export const App = () => {
         return (
           <TimerFormScreen timer={navigationState.timer} setTimer={setTimer} />
         );
+      case 'timer':
+        return <TimerScreen timer={navigationState.timer} />;
       case 'settings':
         return <SettingsScreen />;
       default:

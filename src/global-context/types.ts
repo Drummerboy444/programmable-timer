@@ -14,6 +14,10 @@ export type NavigationState =
       timer: Timer;
     }
   | {
+      screen: 'timer';
+      timer: Timer;
+    }
+  | {
       screen: 'settings';
     };
 

@@ -13,7 +13,10 @@ const TITLE_LOOKUP: Record<Exclude<Screen, 'timer-form' | 'timer'>, string> = {
 };
 
 const getTitle = (navigationState: NavigationState) => {
-  if (navigationState.screen === 'timer-form')
+  if (
+    navigationState.screen === 'timer-form' ||
+    navigationState.screen === 'timer'
+  )
     return navigationState.timer.name;
   return TITLE_LOOKUP[navigationState.screen];
 };
@@ -44,7 +47,13 @@ export const NavigationHeader = ({
       {shouldDisplayBackButton ? (
         <Button
           title="Go back"
-          onPress={() => setNavigationState({ screen: 'timer-list' })}
+          onPress={() =>
+            setNavigationState(
+              currentScreen === 'timer'
+                ? { screen: 'timer-form', timer: navigationState.timer }
+                : { screen: 'timer-list' },
+            )
+          }
         />
       ) : undefined}
 

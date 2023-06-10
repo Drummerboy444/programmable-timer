@@ -6,10 +6,7 @@ import { Timer, TimingUnit } from '../../model/types';
 import { useSizes } from '../../theming/use-sizes';
 import { Screen } from '../Screen';
 import { TimingUnitForm } from './TimingUnitForm';
-import { PlayButton } from './PlayButton';
-import { TimingUnitListItem } from './TimingUnitListItem';
-import { useTimer } from './useTimer';
-import { appendTimeElapsed } from './appendTimeElapsed';
+import { TimingUnitFormListItem } from './TimingUnitFormListItem';
 import { Uuid } from '../../lib/utils/uuid';
 
 export const TimerFormScreen = ({
@@ -21,7 +18,7 @@ export const TimerFormScreen = ({
 }) => {
   const { small } = useSizes();
 
-  const { setDrawerState } = useContext(GlobalContext);
+  const { setDrawerState, setNavigationState } = useContext(GlobalContext);
 
   const addTimingUnit = (timingUnit: TimingUnit) => {
     setTimer({ ...timer, timingUnits: [...timer.timingUnits, timingUnit] });
@@ -103,31 +100,26 @@ export const TimerFormScreen = ({
     });
   };
 
-  const { playing, timeElapsed, togglePlaying, reset } = useTimer();
-
   return (
     <Screen style={{ justifyContent: 'space-between' }}>
       <View style={{ gap: small }}>
-        {appendTimeElapsed(timer.timingUnits, timeElapsed).map(
-          (timingUnitWithTimeElapsed, i) => (
-            <TimingUnitListItem
-              key={timingUnitWithTimeElapsed.id}
-              timingUnitWithTimeElapsed={timingUnitWithTimeElapsed}
-              canEdit={!playing}
-              onEdit={() =>
-                openEditTimingUnitDrawer(timingUnitWithTimeElapsed, i)
-              }
-              onMoveUp={() => moveTimingUnitUp(i)}
-              onMoveDown={() => moveTimingUnitDown(i)}
-              onDelete={() => deleteTimingUnit(timingUnitWithTimeElapsed.id)}
-            />
-          ),
-        )}
+        {timer.timingUnits.map((timingUnit, i) => (
+          <TimingUnitFormListItem
+            key={timingUnit.id}
+            timingUnit={timingUnit}
+            onEdit={() => openEditTimingUnitDrawer(timingUnit, i)}
+            onMoveUp={() => moveTimingUnitUp(i)}
+            onMoveDown={() => moveTimingUnitDown(i)}
+            onDelete={() => deleteTimingUnit(timingUnit.id)}
+          />
+        ))}
         <Button title="New +" onPress={openNewTimingUnitDrawer} />
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: small }}>
-        <Button title="Reset" onPress={reset} />
-        <PlayButton playing={playing} togglePlaying={togglePlaying} />
+        <Button
+          title="Start"
+          onPress={() => setNavigationState({ screen: 'timer', timer })}
+        />
       </View>
     </Screen>
   );
