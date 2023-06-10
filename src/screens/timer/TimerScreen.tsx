@@ -1,13 +1,13 @@
 import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/lib/function';
 import React, { View } from 'react-native';
-import { useTimer } from '../../lib/hooks/useTimer';
+import { useTimer } from '../../lib/hooks/use-timer';
 import { Timer } from '../../model/types';
 import { useSizes } from '../../theming/use-sizes';
 import { Screen } from '../Screen';
 import { PlayButton } from './PlayButton';
 import { TimingUnitListItem } from './TimingUnitListItem';
-import { appendTimeElapsed } from './appendTimeElapsed';
+import { appendTimeElapsed } from './append-time-elapsed';
 import { Button } from '../../lib/components/buttons/Button';
 
 export const TimerScreen = ({ timer }: { timer: Timer }) => {
