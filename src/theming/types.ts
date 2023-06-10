@@ -9,6 +9,7 @@ export type Theme = {
   secondaryColor: Color;
   backgroundColor: Color;
   disabledColor: Color;
+  pressedColor: Color;
   textColor: Color;
   borderColor: Color;
   drawerShadowOpacity: number;

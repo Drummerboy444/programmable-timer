@@ -15,7 +15,7 @@ export const Button = ({
   disabled?: boolean;
   style?: React.ViewStyle;
 }) => {
-  const { primaryColor, secondaryColor, disabledColor } = useTheme();
+  const { primaryColor, pressedColor, disabledColor } = useTheme();
   const { medium } = useSizes();
 
   const baseStyle: React.ViewStyle = {
@@ -37,7 +37,7 @@ export const Button = ({
       }}
       onPressStyle={{
         ...baseStyle,
-        backgroundColor: secondaryColor,
+        backgroundColor: pressedColor,
         ...style,
       }}
     >

@@ -4,6 +4,7 @@ import { toSeconds } from '../../lib/utils/time-display';
 import { TimingUnit } from '../../model/types';
 import { useSizes } from '../../theming/use-sizes';
 import { Text } from '../../lib/components/Text';
+import { useTheme } from '../../theming/use-theme';
 
 export const TimingUnitListItem = ({
   timingUnit: { id, name, length },
@@ -12,7 +13,10 @@ export const TimingUnitListItem = ({
   timingUnit: TimingUnit;
   timeElapsed: number;
 }) => {
+  const { secondaryColor } = useTheme();
   const { small } = useSizes();
+
+  const isActiveTimer = timeElapsed > 0 && timeElapsed < length;
 
   return (
     <Card
@@ -21,6 +25,7 @@ export const TimingUnitListItem = ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: small,
+        backgroundColor: isActiveTimer ? secondaryColor : undefined,
       }}
     >
       <Text>{name}</Text>
