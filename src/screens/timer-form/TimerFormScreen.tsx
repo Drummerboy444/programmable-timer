@@ -7,7 +7,6 @@ import { useSizes } from '../../theming/use-sizes';
 import { Screen } from '../Screen';
 import { TimingUnitForm } from './TimingUnitForm';
 import { TimingUnitFormListItem } from './TimingUnitFormListItem';
-import { Uuid } from '../../lib/utils/uuid';
 
 export const TimerFormScreen = ({
   timer,
@@ -20,51 +19,21 @@ export const TimerFormScreen = ({
 
   const { setDrawerState, setNavigationState } = useContext(GlobalContext);
 
-  const addTimingUnit = (timingUnit: TimingUnit) => {
-    setTimer({ ...timer, timingUnits: [...timer.timingUnits, timingUnit] });
+  const setTimingUnits = (timingUnits: TimingUnit[]) => {
+    setTimer({ ...timer, timingUnits });
   };
 
-  const deleteTimingUnit = (idToRemove: Uuid) => {
-    setTimer({
-      ...timer,
-      timingUnits: timer.timingUnits.filter(({ id }) => id !== idToRemove),
-    });
-  };
-
-  const moveTimingUnitUp = (index: number) => {
-    if (index === 0) return;
-
+  const swapTimingUnits = (index1: number, index2: number) => {
     const timingUnitsCopy = [...timer.timingUnits];
-    const firstTimingUnit = timer.timingUnits[index - 1];
-    const secondTimingUnit = timer.timingUnits[index];
+    const firstTimingUnit = timer.timingUnits[index1];
+    const secondTimingUnit = timer.timingUnits[index2];
 
     if (firstTimingUnit === undefined || secondTimingUnit === undefined) return;
 
-    timingUnitsCopy[index - 1] = secondTimingUnit;
-    timingUnitsCopy[index] = firstTimingUnit;
+    timingUnitsCopy[index1] = secondTimingUnit;
+    timingUnitsCopy[index2] = firstTimingUnit;
 
-    setTimer({
-      ...timer,
-      timingUnits: timingUnitsCopy,
-    });
-  };
-
-  const moveTimingUnitDown = (index: number) => {
-    if (index === timer.timingUnits.length - 1) return;
-
-    const timingUnitsCopy = [...timer.timingUnits];
-    const firstTimingUnit = timer.timingUnits[index];
-    const secondTimingUnit = timer.timingUnits[index + 1];
-
-    if (firstTimingUnit === undefined || secondTimingUnit === undefined) return;
-
-    timingUnitsCopy[index] = secondTimingUnit;
-    timingUnitsCopy[index + 1] = firstTimingUnit;
-
-    setTimer({
-      ...timer,
-      timingUnits: timingUnitsCopy,
-    });
+    setTimingUnits(timingUnitsCopy);
   };
 
   const openEditTimingUnitDrawer = (timingUnit: TimingUnit, index: number) => {
@@ -76,7 +45,7 @@ export const TimerFormScreen = ({
           onSubmit={newTimingUnit => {
             const timingUnitsCopy = [...timer.timingUnits];
             timingUnitsCopy[index] = newTimingUnit;
-            setTimer({ ...timer, timingUnits: timingUnitsCopy });
+            setTimingUnits(timingUnitsCopy);
             setDrawerState({ open: false });
           }}
           defaultValues={timingUnit}
@@ -92,7 +61,7 @@ export const TimerFormScreen = ({
         <TimingUnitForm
           submitButtonText="Create"
           onSubmit={timingUnit => {
-            addTimingUnit(timingUnit);
+            setTimingUnits([...timer.timingUnits, timingUnit]);
             setDrawerState({ open: false });
           }}
         />
@@ -110,9 +79,13 @@ export const TimerFormScreen = ({
             canMoveUp={i > 0}
             canMoveDown={i < timer.timingUnits.length - 1}
             onEdit={() => openEditTimingUnitDrawer(timingUnit, i)}
-            onMoveUp={() => moveTimingUnitUp(i)}
-            onMoveDown={() => moveTimingUnitDown(i)}
-            onDelete={() => deleteTimingUnit(timingUnit.id)}
+            onMoveUp={() => swapTimingUnits(i, i - 1)}
+            onMoveDown={() => swapTimingUnits(i, i + 1)}
+            onDelete={() =>
+              setTimingUnits(
+                timer.timingUnits.filter(({ id }) => id !== timingUnit.id),
+              )
+            }
           />
         ))}
         <Button title="New +" onPress={openNewTimingUnitDrawer} />
