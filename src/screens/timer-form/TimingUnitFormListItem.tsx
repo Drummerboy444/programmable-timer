@@ -7,7 +7,7 @@ import { toSeconds } from '../../lib/utils/time-display';
 import { IconButton } from '../../lib/components/buttons/IconButton';
 
 export const TimingUnitFormListItem = ({
-  timingUnit: { id, length, name },
+  timingUnit,
   canMoveUp,
   canMoveDown,
   onEdit,
@@ -27,19 +27,21 @@ export const TimingUnitFormListItem = ({
 
   return (
     <Card
-      key={id}
+      key={timingUnit.id}
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: small,
       }}
     >
-      <Text>{name}</Text>
+      <Text>{timingUnit.name}</Text>
       <IconButton icon="EDIT" onPress={onEdit} />
       {canMoveUp && <IconButton icon="UP" onPress={onMoveUp} />}
       {canMoveDown && <IconButton icon="DOWN" onPress={onMoveDown} />}
       <IconButton icon="BIN" onPress={onDelete} />
-      <Text>{toSeconds(length)}</Text>
+      {timingUnit.type === 'automatic' && (
+        <Text>{toSeconds(timingUnit.length)}</Text>
+      )}
     </Card>
   );
 };

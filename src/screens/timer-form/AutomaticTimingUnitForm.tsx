@@ -8,17 +8,17 @@ import { Button } from '../../lib/components/buttons/Button';
 import { NumericInput } from '../../lib/components/input/NumericInput';
 import { TextInput } from '../../lib/components/input/TextInput';
 import { getUuid } from '../../lib/utils/uuid';
-import { TimingUnit } from '../../model/types';
+import { AutomaticTimingUnit } from '../../model/types';
 import { useSizes } from '../../theming/use-sizes';
 
-export const TimingUnitForm = ({
+export const AutomaticTimingUnitForm = ({
   submitButtonText,
   onSubmit,
   defaultValues,
 }: {
   submitButtonText: string;
-  onSubmit: (timingUnit: TimingUnit) => void;
-  defaultValues?: Omit<TimingUnit, 'id'>;
+  onSubmit: (timingUnit: AutomaticTimingUnit) => void;
+  defaultValues?: Omit<AutomaticTimingUnit, 'id'>;
 }) => {
   const { medium } = useSizes();
 
@@ -43,6 +43,7 @@ export const TimingUnitForm = ({
           onPress={() => {
             onSubmit({
               id: getUuid(),
+              type: 'automatic',
               name: newName,
               length: newLength * 1_000,
             });

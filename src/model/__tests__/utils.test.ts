@@ -21,16 +21,19 @@ describe('serialiseTimers', () => {
   it('should serialise a single non-empty timer', () => {
     const timingUnit1: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 1 name',
       length: 1020,
     };
     const timingUnit2: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 2 name',
       length: 3040,
     };
     const timingUnit3: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 3 name',
       length: 5060,
     };
@@ -82,11 +85,13 @@ describe('serialiseTimers', () => {
   it('should serialise multiple non-empty timers', () => {
     const timingUnit1: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 1 name',
       length: 1020,
     };
     const timingUnit2: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 2 name',
       length: 3040,
     };
@@ -97,11 +102,13 @@ describe('serialiseTimers', () => {
     };
     const timingUnit3: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 3 name',
       length: 5060,
     };
     const timingUnit4: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 4 name',
       length: 7080,
     };
@@ -149,16 +156,19 @@ describe('deserialiseTimers', () => {
   it('should deserialise a single non-empty timer', () => {
     const timingUnit1: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 1 name',
       length: 1020,
     };
     const timingUnit2: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 2 name',
       length: 3040,
     };
     const timingUnit3: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 3 name',
       length: 5060,
     };
@@ -214,11 +224,13 @@ describe('deserialiseTimers', () => {
   it('should deserialise multiple non-empty timers', () => {
     const timingUnit1: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 1 name',
       length: 1020,
     };
     const timingUnit2: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 2 name',
       length: 3040,
     };
@@ -229,11 +241,13 @@ describe('deserialiseTimers', () => {
     };
     const timingUnit3: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 3 name',
       length: 5060,
     };
     const timingUnit4: TimingUnit = {
       id: getUuid(),
+      type: 'automatic',
       name: 'Timing unit 4 name',
       length: 7080,
     };
@@ -277,4 +291,111 @@ describe('deserialiseTimers', () => {
       },
     ]);
   });
+});
+
+it('should serialise and deserialise a complex list of timers', () => {
+  const timers: Timer[] = [
+    {
+      id: getUuid(),
+      name: 'Timer 1 name',
+      timingUnits: [],
+    },
+    {
+      id: getUuid(),
+      name: 'Timer 2 name',
+      timingUnits: [
+        {
+          id: getUuid(),
+          type: 'automatic',
+          name: 'Timing unit 1 name',
+          length: 1000,
+        },
+      ],
+    },
+    {
+      id: getUuid(),
+      name: 'Timer 3 name',
+      timingUnits: [
+        {
+          id: getUuid(),
+          type: 'manual',
+          name: 'Timing unit 2 name ',
+        },
+      ],
+    },
+    {
+      id: getUuid(),
+      name: 'Timer 3 name',
+      timingUnits: [
+        {
+          id: getUuid(),
+          type: 'automatic',
+          name: 'Timing unit 3 name',
+          length: 1010,
+        },
+        {
+          id: getUuid(),
+          type: 'automatic',
+          name: 'Timing unit 4 name',
+          length: 1020,
+        },
+        {
+          id: getUuid(),
+          type: 'automatic',
+          name: 'Timing unit 5 name',
+          length: 1030,
+        },
+      ],
+    },
+    {
+      id: getUuid(),
+      name: 'Timer 4 name',
+      timingUnits: [
+        {
+          id: getUuid(),
+          type: 'manual',
+          name: 'Timing unit 6 name ',
+        },
+        {
+          id: getUuid(),
+          type: 'manual',
+          name: 'Timing unit 7 name ',
+        },
+        {
+          id: getUuid(),
+          type: 'manual',
+          name: 'Timing unit 8 name ',
+        },
+      ],
+    },
+    {
+      id: getUuid(),
+      name: 'Timer 5 name',
+      timingUnits: [
+        {
+          id: getUuid(),
+          type: 'manual',
+          name: 'Timing unit 9 name ',
+        },
+        {
+          id: getUuid(),
+          type: 'automatic',
+          name: 'Timing unit 10 name ',
+          length: 2040,
+        },
+        {
+          id: getUuid(),
+          type: 'manual',
+          name: 'Timing unit 11 name ',
+        },
+        {
+          id: getUuid(),
+          type: 'automatic',
+          name: 'Timing unit 12 name ',
+          length: 2050,
+        },
+      ],
+    },
+  ];
+  expect(deserialiseTimers(serialiseTimers(timers))).toEqual(timers);
 });

@@ -33,7 +33,14 @@ export const useTimer = () => {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [timingEvents, setTimingEvents] = useState<TimingEvent[]>([]);
 
-  const togglePlaying = useCallback(() => {
+  const play = useCallback(() => {
+    if (!playing) {
+      setPlaying(true);
+      setTimingEvents([...timingEvents, { start: Date.now(), end: undefined }]);
+    }
+  }, [playing, timingEvents]);
+
+  const pause = useCallback(() => {
     if (playing) {
       const firstTimingEvents = timingEvents.slice(0, timingEvents.length - 1);
       const lastTimingEvent = timingEvents[timingEvents.length - 1];
@@ -44,9 +51,6 @@ export const useTimer = () => {
         ...firstTimingEvents,
         { start: lastTimingEvent.start, end: Date.now() },
       ]);
-    } else {
-      setPlaying(true);
-      setTimingEvents([...timingEvents, { start: Date.now(), end: undefined }]);
     }
   }, [playing, timingEvents]);
 
@@ -63,7 +67,8 @@ export const useTimer = () => {
   return {
     playing,
     timeElapsed,
-    togglePlaying,
+    play,
+    pause,
     reset,
   };
 };

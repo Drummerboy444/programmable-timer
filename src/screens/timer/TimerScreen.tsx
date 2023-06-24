@@ -1,58 +1,46 @@
-import * as A from 'fp-ts/Array';
-import { pipe } from 'fp-ts/lib/function';
+import { useState } from 'react';
 import React, { View } from 'react-native';
-import { useEffect } from 'react';
-import { useTimer } from '../../lib/hooks/use-timer';
+import { Text } from '../../lib/components/Text';
 import { Timer } from '../../model/types';
 import { useSizes } from '../../theming/use-sizes';
 import { Screen } from '../Screen';
-import { PlayButton } from './PlayButton';
-import { TimingUnitListItem } from './TimingUnitListItem';
-import { appendTimeElapsed } from './append-time-elapsed';
-import { Button } from '../../lib/components/buttons/Button';
-import { Text } from '../../lib/components/Text';
+import { AutomaticTimingUnitChunk } from './AutomaticTimingUnitChunk';
+import { ManualTimingUnitChunk } from './ManualTimingUnitChunk';
+import { chunkTimingUnits } from './chunk-timing-units';
 
-export const TimerScreen = ({ timer }: { timer: Timer }) => {
+export const TimerScreen = ({ timer: { timingUnits } }: { timer: Timer }) => {
   const { small } = useSizes();
-  const {
-    playing,
-    timeElapsed: totalTimeElapsed,
-    togglePlaying,
-    reset,
-  } = useTimer();
+  const [currentChunkIndex, setCurrentChunkIndex] = useState(0);
 
-  // The empty dependency is to act as componentDidMount.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => togglePlaying(), []);
+  const timingUnitChunks = chunkTimingUnits(timingUnits);
 
-  const isDone = pipe(
-    timer.timingUnits,
-    A.map(({ length }) => length),
-    A.reduce(0, (a, b) => a + b),
-    totalLength => totalTimeElapsed >= totalLength,
-  );
+  const onChunkFinished = () => {
+    setCurrentChunkIndex(currentChunkIndex + 1);
+  };
 
   return (
     <Screen>
       <View style={{ gap: small }}>
-        {pipe(
-          timer.timingUnits,
-          appendTimeElapsed(totalTimeElapsed),
-          A.map(({ timeElapsed, ...timingUnit }) => (
-            <TimingUnitListItem
-              key={timingUnit.id}
-              timingUnit={timingUnit}
-              timeElapsed={timeElapsed}
+        {timingUnitChunks.map((chunk, index) => {
+          const isCurrentChunk = index === currentChunkIndex;
+
+          return Array.isArray(chunk) ? (
+            <AutomaticTimingUnitChunk
+              key={chunk[0].id}
+              timingUnits={chunk}
+              isCurrentChunk={isCurrentChunk}
+              onFinished={onChunkFinished}
             />
-          )),
-        )}
-        <View
-          style={{ flexDirection: 'row', gap: small, alignItems: 'center' }}
-        >
-          <Button title="Reset" onPress={reset} />
-          <PlayButton playing={playing} togglePlaying={togglePlaying} />
-          {isDone && <Text>Done!</Text>}
-        </View>
+          ) : (
+            <ManualTimingUnitChunk
+              key={chunk.id}
+              timingUnit={chunk}
+              isCurrentChunk={isCurrentChunk}
+              onFinished={onChunkFinished}
+            />
+          );
+        })}
+        {currentChunkIndex >= timingUnitChunks.length && <Text>Done!</Text>}
       </View>
     </Screen>
   );

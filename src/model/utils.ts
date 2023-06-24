@@ -18,8 +18,10 @@ const serialiseArray = <T>(serialise: (t: T) => string, separator: string) =>
     A.reduce(S.empty, S.Monoid.concat),
   );
 
-const serialiseTimingUnit = ({ id, name, length }: TimingUnit) =>
-  `${id}${TIMING_UNIT_SEPARATOR}${name}${TIMING_UNIT_SEPARATOR}${length}`;
+const serialiseTimingUnit = (timingUnit: TimingUnit) =>
+  timingUnit.type === 'automatic'
+    ? `${timingUnit.id}${TIMING_UNIT_SEPARATOR}${timingUnit.name}${TIMING_UNIT_SEPARATOR}${timingUnit.length}`
+    : `${timingUnit.id}${TIMING_UNIT_SEPARATOR}${timingUnit.name}`;
 
 const serialiseTimingUnits = serialiseArray(
   serialiseTimingUnit,
@@ -33,6 +35,8 @@ const serialiseTimer = ({ id, name, timingUnits }: Timer) =>
 
 export const serialiseTimers = serialiseArray(serialiseTimer, TIMERS_SEPARATOR);
 
+const isLength2Tuple = (s: string[]): s is [string, string] => s.length === 2;
+
 const isLength3Tuple = (s: string[]): s is [string, string, string] =>
   s.length === 3;
 
@@ -45,7 +49,19 @@ const deserialiseTimingUnit = (
     TIMING_UNIT_SEPARATOR,
   );
 
-  if (!isLength3Tuple(splitSerialisedTimingUnit)) return O.none;
+  if (
+    !isLength2Tuple(splitSerialisedTimingUnit) &&
+    !isLength3Tuple(splitSerialisedTimingUnit)
+  )
+    return O.none;
+
+  if (isLength2Tuple(splitSerialisedTimingUnit)) {
+    const [id, name] = splitSerialisedTimingUnit;
+
+    if (!isUuid(id)) return O.none;
+
+    return O.of({ id, type: 'manual', name });
+  }
 
   const [id, name, length] = splitSerialisedTimingUnit;
 
@@ -55,7 +71,7 @@ const deserialiseTimingUnit = (
 
   if (Number.isNaN(numberLength)) return O.none;
 
-  return O.of({ id, name, length: numberLength });
+  return O.of({ id, type: 'automatic', name, length: numberLength });
 };
 
 const deserialiseTimingUnits = (

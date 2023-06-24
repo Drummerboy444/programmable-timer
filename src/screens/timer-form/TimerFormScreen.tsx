@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 import React, { View } from 'react-native';
+import { absurd } from 'fp-ts/lib/function';
 import { GlobalContext } from '../../global-context/GlobalContext';
 import { Button } from '../../lib/components/buttons/Button';
 import { Timer, TimingUnit } from '../../model/types';
 import { useSizes } from '../../theming/use-sizes';
 import { Screen } from '../Screen';
-import { TimingUnitForm } from './TimingUnitForm';
+import { AutomaticTimingUnitForm } from './AutomaticTimingUnitForm';
 import { TimingUnitFormListItem } from './TimingUnitFormListItem';
+import { ManualTimingUnitForm } from './ManualTimingUnitForm';
 
 export const TimerFormScreen = ({
   timer,
@@ -37,28 +39,68 @@ export const TimerFormScreen = ({
   };
 
   const openEditTimingUnitDrawer = (timingUnit: TimingUnit, index: number) => {
+    switch (timingUnit.type) {
+      case 'automatic': {
+        setDrawerState({
+          open: true,
+          content: (
+            <AutomaticTimingUnitForm
+              submitButtonText="Update"
+              onSubmit={newTimingUnit => {
+                const timingUnitsCopy = [...timer.timingUnits];
+                timingUnitsCopy[index] = newTimingUnit;
+                setTimingUnits(timingUnitsCopy);
+                setDrawerState({ open: false });
+              }}
+              defaultValues={timingUnit}
+            />
+          ),
+        });
+        return;
+      }
+      case 'manual': {
+        setDrawerState({
+          open: true,
+          content: (
+            <ManualTimingUnitForm
+              submitButtonText="Update"
+              onSubmit={newTimingUnit => {
+                const timingUnitsCopy = [...timer.timingUnits];
+                timingUnitsCopy[index] = newTimingUnit;
+                setTimingUnits(timingUnitsCopy);
+                setDrawerState({ open: false });
+              }}
+              defaultValues={timingUnit}
+            />
+          ),
+        });
+        return;
+      }
+      default:
+        absurd<never>(timingUnit);
+    }
+  };
+
+  const openNewAutomaticTimingUnitDrawer = () => {
     setDrawerState({
       open: true,
       content: (
-        <TimingUnitForm
-          submitButtonText="Update"
-          onSubmit={newTimingUnit => {
-            const timingUnitsCopy = [...timer.timingUnits];
-            timingUnitsCopy[index] = newTimingUnit;
-            setTimingUnits(timingUnitsCopy);
+        <AutomaticTimingUnitForm
+          submitButtonText="Create"
+          onSubmit={timingUnit => {
+            setTimingUnits([...timer.timingUnits, timingUnit]);
             setDrawerState({ open: false });
           }}
-          defaultValues={timingUnit}
         />
       ),
     });
   };
 
-  const openNewTimingUnitDrawer = () => {
+  const openNewManualTimingUnitDrawer = () => {
     setDrawerState({
       open: true,
       content: (
-        <TimingUnitForm
+        <ManualTimingUnitForm
           submitButtonText="Create"
           onSubmit={timingUnit => {
             setTimingUnits([...timer.timingUnits, timingUnit]);
@@ -88,7 +130,14 @@ export const TimerFormScreen = ({
             }
           />
         ))}
-        <Button title="New +" onPress={openNewTimingUnitDrawer} />
+        <Button
+          title="New (automatic) +"
+          onPress={openNewAutomaticTimingUnitDrawer}
+        />
+        <Button
+          title="New (manual) +"
+          onPress={openNewManualTimingUnitDrawer}
+        />
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: small }}>
         <Button

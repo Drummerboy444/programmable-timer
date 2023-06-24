@@ -1,9 +1,9 @@
-import { TimingUnit } from '../../model/types';
+import { AutomaticTimingUnit } from '../../model/types';
 
 export const appendTimeElapsed =
-  (totalTimeElapsed: number) => (timingUnits: TimingUnit[]) => {
+  (totalTimeElapsed: number) => (timingUnits: AutomaticTimingUnit[]) => {
     let remainingTimeElapsed = totalTimeElapsed;
-    const timingUnitsWithTimesElapsed: (TimingUnit & {
+    const timingUnitsWithTimesElapsed: (AutomaticTimingUnit & {
       timeElapsed: number;
     })[] = [];
 
