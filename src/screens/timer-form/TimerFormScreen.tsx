@@ -130,20 +130,17 @@ export const TimerFormScreen = ({
             }
           />
         ))}
-        <Button
-          title="New (automatic) +"
-          onPress={openNewAutomaticTimingUnitDrawer}
-        />
-        <Button
-          title="New (manual) +"
-          onPress={openNewManualTimingUnitDrawer}
-        />
-      </View>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: small }}>
-        <Button
-          title="Start"
-          onPress={() => setNavigationState({ screen: 'timer', timer })}
-        />
+        <View style={{ flexDirection: 'row', gap: small }}>
+          <Button
+            title="Automatic +"
+            onPress={openNewAutomaticTimingUnitDrawer}
+          />
+          <Button title="Manual +" onPress={openNewManualTimingUnitDrawer} />
+          <Button
+            title="Start"
+            onPress={() => setNavigationState({ screen: 'timer', timer })}
+          />
+        </View>
       </View>
     </Screen>
   );
